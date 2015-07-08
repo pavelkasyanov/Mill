@@ -3,9 +3,16 @@ package by.kasyanov.mvc.dao.JdbcImpl;
 import by.kasyanov.mvc.dao.ProducerDAO;
 import by.kasyanov.mvc.model.Producer;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 public class JdbcProducerDAOImpl implements ProducerDAO {
+    private DataSource dataSource;
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
     public void insert(Producer producer) {
 

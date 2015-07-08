@@ -3,9 +3,16 @@ package by.kasyanov.mvc.dao.JdbcImpl;
 import by.kasyanov.mvc.dao.MillStateDAO;
 import by.kasyanov.mvc.model.MillState;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 public class JdbcMillStateDAOImpl implements MillStateDAO {
+    private DataSource dataSource;
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
     public void insert(MillState millState) {
     }

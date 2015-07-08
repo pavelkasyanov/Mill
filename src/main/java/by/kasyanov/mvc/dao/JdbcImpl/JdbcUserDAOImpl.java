@@ -3,9 +3,16 @@ package by.kasyanov.mvc.dao.JdbcImpl;
 import by.kasyanov.mvc.dao.UserDAO;
 import by.kasyanov.mvc.model.User;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 public class JdbcUserDAOImpl implements UserDAO {
+    private DataSource dataSource;
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
     public void insert(User user) {
 

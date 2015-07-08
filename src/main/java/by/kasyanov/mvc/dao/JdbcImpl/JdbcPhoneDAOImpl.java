@@ -3,9 +3,16 @@ package by.kasyanov.mvc.dao.JdbcImpl;
 import by.kasyanov.mvc.dao.PhoneDAO;
 import by.kasyanov.mvc.model.Phone;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 public class JdbcPhoneDAOImpl implements PhoneDAO {
+    private DataSource dataSource;
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
     public void insert(Phone phone) {
 

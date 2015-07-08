@@ -3,9 +3,17 @@ package by.kasyanov.mvc.dao.JdbcImpl;
 import by.kasyanov.mvc.dao.ImageDAO;
 import by.kasyanov.mvc.model.Image;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 public class JdbcImageDAOImpl implements ImageDAO {
+
+    private DataSource dataSource;
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @Override
     public void insert(Image image) {
     }
