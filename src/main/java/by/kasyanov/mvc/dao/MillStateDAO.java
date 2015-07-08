@@ -1,0 +1,13 @@
+package by.kasyanov.mvc.dao;
+
+import by.kasyanov.mvc.model.MillState;
+
+import java.util.List;
+
+public interface MillStateDAO {
+    void insert(MillState millState);
+    MillState getById(int id);
+    void update(MillState millState);
+    void deleteById(int id);
+    List<MillState> getAll();
+}
