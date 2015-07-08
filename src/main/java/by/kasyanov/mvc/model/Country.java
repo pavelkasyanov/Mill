@@ -7,7 +7,6 @@ public class Country {
     private String image;
 
     public Country() {
-
     }
 
     public Country(int id, String name, String image) {
