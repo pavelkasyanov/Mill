@@ -1,5 +1,6 @@
-package by.kasyanov.mvc.dao;
+package by.kasyanov.mvc.dao.JdbcImpl;
 
+import by.kasyanov.mvc.dao.CountryDAO;
 import by.kasyanov.mvc.model.Country;
 
 import java.util.List;
