@@ -1,11 +1,22 @@
-package by.kasyanov.mvc.dao.JdbcImpl;
+package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.MillOptionDAO;
 import by.kasyanov.mvc.model.MillOption;
+import org.springframework.jdbc.core.JdbcTemplate;
 
+import javax.sql.DataSource;
 import java.util.List;
 
-public class JdbcMillOptionDAOImpl implements MillOptionDAO {
+public class MillOptionDAOImpl implements MillOptionDAO {
+
+    private DataSource dataSource;
+    private JdbcTemplate jdbcTemplate;
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
     @Override
     public void insert(MillOption millOption) {
 

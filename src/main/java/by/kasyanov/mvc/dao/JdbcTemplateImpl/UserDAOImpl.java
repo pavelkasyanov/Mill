@@ -1,11 +1,22 @@
-package by.kasyanov.mvc.dao.JdbcImpl;
+package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.UserDAO;
 import by.kasyanov.mvc.model.User;
+import org.springframework.jdbc.core.JdbcTemplate;
 
+import javax.sql.DataSource;
 import java.util.List;
 
-public class JdbcUserDAOImpl implements UserDAO {
+public class UserDAOImpl implements UserDAO {
+
+    private DataSource dataSource;
+    private JdbcTemplate jdbcTemplate;
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
+    }
+
     @Override
     public void insert(User user) {
 
