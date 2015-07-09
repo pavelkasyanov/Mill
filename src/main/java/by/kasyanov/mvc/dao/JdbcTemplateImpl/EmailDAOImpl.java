@@ -1,6 +1,7 @@
 package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.EmailDAO;
+import by.kasyanov.mvc.dao.mapper.EmailMapper;
 import by.kasyanov.mvc.model.Email;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -20,12 +21,21 @@ public class EmailDAOImpl implements EmailDAO {
 
     @Override
     public void insert(Email email) {
+        String sql = "INSERT INTO emails " +
+                "(ID_COMPANY, ID_USER, EMAIL)" +
+                "VALUES (?, ?, ?)";
 
+        jdbcTemplate.update(sql, new Object[]{email.getCompanyId(),
+                email.getUserId(),
+                email.getEmail()
+        });
     }
 
     @Override
     public Email getById(int id) {
-        return null;
+        String query = "select * from emails where ID = ?";
+        List<Email> emails = jdbcTemplate.query(query, new Object[]{id}, new EmailMapper());
+        return emails.get(0);
     }
 
     @Override
@@ -40,6 +50,9 @@ public class EmailDAOImpl implements EmailDAO {
 
     @Override
     public List<Email> getAll() {
-        return null;
+        String query = "select * from emails";
+        List<Email> emails = jdbcTemplate.query(query, new EmailMapper());
+
+        return emails;
     }
 }

@@ -2,6 +2,7 @@ package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.CompanyDAO;
 import by.kasyanov.mvc.dao.CountryDAO;
+import by.kasyanov.mvc.dao.mapper.CompanyMapper;
 import by.kasyanov.mvc.model.Company;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -20,12 +21,27 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public void insert(Company company) {
+        String sql = "INSERT INTO company " +
+                "(NAME, CITY, COUNTRY_ID, STREET, HOME, OFFICE, POSTCODE, DESCRIPTION, SITE)" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+        jdbcTemplate.update(sql, new Object[]{company.getName(),
+                company.getCity(),
+                company.getCountryId(),
+                company.getStreet(),
+                company.getHome(),
+                company.getOffice(),
+                company.getPostcode(),
+                company.getDescription(),
+                company.getSite()
+        });
     }
 
     @Override
     public Company getById(int id) {
-        return null;
+        String query = "select * from company where ID = ?";
+        List<Company> companies = jdbcTemplate.query(query, new Object[]{id}, new CompanyMapper());
+        return companies.get(0);
     }
 
     @Override
@@ -40,6 +56,9 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public List<Company> getAll() {
-        return null;
+        String query = "select * from Company";
+        List<Company> companies = jdbcTemplate.query(query, new CompanyMapper());
+
+        return companies;
     }
 }

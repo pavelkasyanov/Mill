@@ -1,6 +1,7 @@
 package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.PhoneOperatorDAO;
+import by.kasyanov.mvc.dao.mapper.PhoneOperatorMapper;
 import by.kasyanov.mvc.model.PhoneOperator;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -19,12 +20,19 @@ public class PhoneOperatorDAOImpl implements PhoneOperatorDAO {
 
     @Override
     public void insert(PhoneOperator phoneOperator) {
-
+        String sql = "INSERT INTO phone_operator " +
+                "(NAME, IMAGE)" +
+                "VALUES (?, ?)";
+        jdbcTemplate.update(sql, new Object[]{phoneOperator.getName(),
+                phoneOperator.getImage()
+        });
     }
 
     @Override
     public PhoneOperator getById(int id) {
-        return null;
+        String query = "select * from phone_operator where ID = ?";
+        List<PhoneOperator> phoneOperators = jdbcTemplate.query(query, new Object[]{id}, new PhoneOperatorMapper());
+        return phoneOperators.get(0);
     }
 
     @Override
@@ -39,6 +47,9 @@ public class PhoneOperatorDAOImpl implements PhoneOperatorDAO {
 
     @Override
     public List<PhoneOperator> getAll() {
-        return null;
+        String query = "select * from phone_operator";
+        List<PhoneOperator> phoneOperators = jdbcTemplate.query(query, new PhoneOperatorMapper());
+
+        return phoneOperators;
     }
 }
