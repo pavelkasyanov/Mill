@@ -30,7 +30,9 @@ public class MillOptionDAOImpl implements MillOptionDAO {
 
     @Override
     public MillOption getById(int id) {
-        return null;
+        String query = "select * from options_mill where ID = ?";
+        List<MillOption> options = jdbcTemplate.query(query, new Object[]{id}, new MIllOptionMapper());
+        return options.get(0);
     }
 
     @Override

@@ -33,7 +33,9 @@ public class EmailDAOImpl implements EmailDAO {
 
     @Override
     public Email getById(int id) {
-        return null;
+        String query = "select * from emails where ID = ?";
+        List<Email> emails = jdbcTemplate.query(query, new Object[]{id}, new EmailMapper());
+        return emails.get(0);
     }
 
     @Override

@@ -28,7 +28,9 @@ public class MillStateDAOImpl implements MillStateDAO {
 
     @Override
     public MillState getById(int id) {
-        return null;
+        String query = "select * from state_mill where ID = ?";
+        List<MillState> states = jdbcTemplate.query(query, new Object[]{id}, new MillStateMapper());
+        return states.get(0);
     }
 
     @Override

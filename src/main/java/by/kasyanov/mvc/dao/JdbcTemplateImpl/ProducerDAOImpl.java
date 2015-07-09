@@ -28,7 +28,9 @@ public class ProducerDAOImpl implements ProducerDAO {
 
     @Override
     public Producer getById(int id) {
-        return null;
+        String query = "select * from producer where ID = ?";
+        List<Producer> producers = jdbcTemplate.query(query, new Object[]{id}, new ProducerMapper());
+        return producers.get(0);
     }
 
     @Override

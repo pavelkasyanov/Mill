@@ -30,13 +30,6 @@ public class CountryDAOImpl implements CountryDAO {
     }
 
     @Override
-    public Country getById(int id) {
-        String query = "select * from Country where ID = ?";
-         List<Country> country = jdbcTemplate.query(query, new Object[]{id}, new CountryMapper());
-        return country.get(0);
-    }
-
-    @Override
     public void update(Country country) {
 
     }
@@ -44,6 +37,13 @@ public class CountryDAOImpl implements CountryDAO {
     @Override
     public void deleteById(int id) {
 
+    }
+
+    @Override
+    public Country getById(int id) {
+        String query = "select * from Country where ID = ?";
+         List<Country> country = jdbcTemplate.query(query, new Object[]{id}, new CountryMapper());
+        return country.get(0);
     }
 
     @Override

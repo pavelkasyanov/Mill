@@ -30,7 +30,9 @@ public class PhoneOperatorDAOImpl implements PhoneOperatorDAO {
 
     @Override
     public PhoneOperator getById(int id) {
-        return null;
+        String query = "select * from phone_operator where ID = ?";
+        List<PhoneOperator> phoneOperators = jdbcTemplate.query(query, new Object[]{id}, new PhoneOperatorMapper());
+        return phoneOperators.get(0);
     }
 
     @Override

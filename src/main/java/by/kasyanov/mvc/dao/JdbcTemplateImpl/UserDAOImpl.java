@@ -32,7 +32,9 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getById(int id) {
-        return null;
+        String query = "select * from users where ID = ?";
+        List<User> users = jdbcTemplate.query(query, new Object[]{id}, new UserMapper());
+        return users.get(0);
     }
 
     @Override

@@ -67,7 +67,9 @@ public class MillDAOImpl implements MillDAO {
 
     @Override
     public Mill getById(int id) {
-        return null;
+        String query = "select * from mill where ID = ?";
+        List<Mill> images = jdbcTemplate.query(query, new Object[]{id}, new MillMapper());
+        return images.get(0);
     }
 
     @Override

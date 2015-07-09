@@ -31,7 +31,9 @@ public class SkypeDAOImpl implements SkypeDAO {
 
     @Override
     public Skype getById(int id) {
-        return null;
+        String query = "select * from skype where ID = ?";
+        List<Skype> skypes = jdbcTemplate.query(query, new Object[]{id}, new SkypeMapper());
+        return skypes.get(0);
     }
 
     @Override

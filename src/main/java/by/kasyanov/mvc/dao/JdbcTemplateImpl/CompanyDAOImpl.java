@@ -39,7 +39,9 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public Company getById(int id) {
-        return null;
+        String query = "select * from company where ID = ?";
+        List<Company> companies = jdbcTemplate.query(query, new Object[]{id}, new CompanyMapper());
+        return companies.get(0);
     }
 
     @Override

@@ -32,7 +32,9 @@ public class PhoneDAOImpl implements PhoneDAO {
 
     @Override
     public Phone getById(int id) {
-        return null;
+        String query = "select * from phones where ID = ?";
+        List<Phone> phones = jdbcTemplate.query(query, new Object[]{id}, new PhoneMapper());
+        return phones.get(0);
     }
 
     @Override

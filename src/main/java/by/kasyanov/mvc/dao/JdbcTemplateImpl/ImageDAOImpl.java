@@ -30,7 +30,9 @@ public class ImageDAOImpl implements ImageDAO {
 
     @Override
     public Image getById(int id) {
-        return null;
+        String query = "select * from images where ID = ?";
+        List<Image> images = jdbcTemplate.query(query, new Object[]{id}, new ImageMapper());
+        return images.get(0);
     }
 
     @Override
