@@ -4,14 +4,45 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+    <bean id="companyDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.CompanyDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
     <bean id="countryDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.CountryDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="emailDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.EmailDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="imageDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.ImageDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="millDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.MillDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="millOptionDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.MillOptionDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="millStateDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.MillStateDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="phoneDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.PhoneDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="phoneOperatorDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.PhoneOperatorDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="producerDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.ProducerDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="skypeDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.SkypeDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="userDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.UserDAOImpl">
         <property name="dataSource" ref="dataSource" />
     </bean>
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location">
-            <value>classpath:database/connection.properties</value>
-        </property>
+        <property name="location" value="classpath:database/connection.properties"/>
     </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">

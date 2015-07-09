@@ -1,7 +1,9 @@
 package by.kasyanov.mvc.controller;
 
 import by.kasyanov.mvc.dao.CountryDAO;
+import by.kasyanov.mvc.dao.UserDAO;
 import by.kasyanov.mvc.model.Country;
+import by.kasyanov.mvc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -17,6 +19,9 @@ public class IndexController {
     @Autowired
     CountryDAO countryDAO;
 
+    @Autowired
+    UserDAO userDAO;
+
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
 
@@ -27,8 +32,10 @@ public class IndexController {
 
         countryList.add(country);
 
+        List<User> users = userDAO.getAll();
+
         model.addAttribute("message", "Hello world!");
-        model.addAttribute("countryList", countryList);
+        model.addAttribute("users", users);
 
         return "index";
     }

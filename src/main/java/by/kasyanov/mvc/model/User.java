@@ -58,4 +58,10 @@ public class User {
     public void setCompanyId(int companyId) {
         this.companyId = companyId;
     }
+
+    @Override
+    public String toString() {
+        return "id:" + this.id + ", firstName:" + this.firstName + ", surName:" + this.surName + ", patronymic" +
+                this.patronymic + ", companyId:" + this.companyId;
+    }
 }
