@@ -21,7 +21,31 @@ public class CountryDAOImpl implements CountryDAO {
 
     @Override
     public void insert(Country country) {
+        String sql = "INSERT INTO COUNTRY " +
+                "(NAME, IMAGE)" +
+                "VALUES (?, ?)";
+        Connection conn = null;
+        PreparedStatement ps = null;
 
+        try {
+            conn = dataSource.getConnection();
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, country.getName());
+            ps.setString(2, country.getImage());
+
+            ps.executeUpdate();
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (ps != null) {ps.close(); ps = null;}
+                if (conn != null) {conn.close(); conn = null;}
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -62,12 +86,12 @@ public class CountryDAOImpl implements CountryDAO {
             }
 
         } catch (SQLException e) {
-
+            e.printStackTrace();
         } finally {
             try {
-                rs.close();
-                ps.close();
-                con.close();
+                if (rs != null) { rs.close(); rs = null;}
+                if (ps != null) { ps.close(); ps = null;}
+                if (con != null) { con.close();  con = null;}
             } catch (SQLException e) {
                 e.printStackTrace();
             }

@@ -25,9 +25,11 @@ public class CompanyDAOImpl implements CompanyDAO {
                 "(NAME, CITY, COUNTRY_ID, STREET, HOME, OFFICE, POSTCODE, DESCRIPTION, SITE)" +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Connection conn = null;
+        PreparedStatement ps = null;
         try {
             conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps = conn.prepareStatement(sql);
             ps.setString(1, company.getName());
             ps.setString(2, company.getCity());
             ps.setInt(3, company.getCountryId());
@@ -37,16 +39,17 @@ public class CompanyDAOImpl implements CompanyDAO {
             ps.setInt(7, company.getPostcode());
             ps.setString(8, company.getDescription());
             ps.setString(9, company.getSite());
+
             ps.executeUpdate();
-            ps.close();
 
         }catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                } catch (SQLException e) {}
+            try {
+                if (ps != null) {ps.close(); ps = null;}
+                if (conn != null) {conn.close();}
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -55,13 +58,14 @@ public class CompanyDAOImpl implements CompanyDAO {
     public Company getById(int id) {
         String sql = "SELECT * FROM COMPANY WHERE ID = ?";
         Connection conn = null;
-
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Company company = null;
         try {
             conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+            ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
-            Company company = null;
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if (rs.next()) {
                 company = new Company(
                         rs.getInt("ID"),
@@ -77,23 +81,19 @@ public class CompanyDAOImpl implements CompanyDAO {
                 );
 
             }
-
-            rs.close();
-            ps.close();
-
-            return company;
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (conn != null) {
-                try {
-                    conn.close();
-                }catch (SQLException e) {}
+            try {
+                if (rs != null) {rs.close(); rs = null;}
+                if (ps != null) {ps.close(); ps = null;}
+                if (conn != null) {conn.close(); conn = null;}
+            }catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 
-        return null;
+        return company;
     }
 
     @Override
@@ -111,11 +111,13 @@ public class CompanyDAOImpl implements CompanyDAO {
         String query = "select * from COMPANY";
         List<Company> companyList = new ArrayList<Company>();
         Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
 
         try {
             conn = dataSource.getConnection();
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
 
             while (rs.next()) {
                 Company company = new Company(
@@ -134,11 +136,16 @@ public class CompanyDAOImpl implements CompanyDAO {
                 companyList.add(company);
             }
 
-            rs.close();
-            ps.close();
-            conn.close();
         }catch (SQLException e) {
 
+        } finally {
+            try {
+                if (rs != null) {rs.close(); rs = null;}
+                if (ps!= null) {ps.close(); ps = null;}
+                if (conn != null) {conn.close(); conn = null;}
+            }catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
 
         return companyList;

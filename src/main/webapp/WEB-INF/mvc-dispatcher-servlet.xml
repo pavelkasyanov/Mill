@@ -12,7 +12,7 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
-    <bean id="countryDAO" class="by.kasyanov.mvc.dao.JdbcImpl.CountryDAOImpl">
+    <bean id="countryDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.CountryDAOImpl">
         <property name="dataSource" ref="dataSource" />
     </bean>
 
