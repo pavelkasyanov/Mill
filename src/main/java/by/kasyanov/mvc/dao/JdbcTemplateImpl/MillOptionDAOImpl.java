@@ -1,6 +1,7 @@
 package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.MillOptionDAO;
+import by.kasyanov.mvc.dao.mapper.MIllOptionMapper;
 import by.kasyanov.mvc.model.MillOption;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -39,6 +40,9 @@ public class MillOptionDAOImpl implements MillOptionDAO {
 
     @Override
     public List<MillOption> getAll() {
-        return null;
+        String query = "select * from options_mill";
+        List<MillOption> millOptions = jdbcTemplate.query(query, new MIllOptionMapper());
+
+        return millOptions;
     }
 }

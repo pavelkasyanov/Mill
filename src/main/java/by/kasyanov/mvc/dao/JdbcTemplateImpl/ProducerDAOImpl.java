@@ -1,6 +1,7 @@
 package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.ProducerDAO;
+import by.kasyanov.mvc.dao.mapper.ProducerMapper;
 import by.kasyanov.mvc.model.Producer;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -39,6 +40,9 @@ public class ProducerDAOImpl implements ProducerDAO {
 
     @Override
     public List<Producer> getAll() {
-        return null;
+        String query = "select * from producer";
+        List<Producer> producers = jdbcTemplate.query(query, new ProducerMapper());
+
+        return producers;
     }
 }

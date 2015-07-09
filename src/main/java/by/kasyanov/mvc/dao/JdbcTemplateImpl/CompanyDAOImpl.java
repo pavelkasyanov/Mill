@@ -2,6 +2,7 @@ package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.CompanyDAO;
 import by.kasyanov.mvc.dao.CountryDAO;
+import by.kasyanov.mvc.dao.mapper.CompanyMapper;
 import by.kasyanov.mvc.model.Company;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -40,6 +41,9 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public List<Company> getAll() {
-        return null;
+        String query = "select * from Company";
+        List<Company> companies = jdbcTemplate.query(query, new CompanyMapper());
+
+        return companies;
     }
 }

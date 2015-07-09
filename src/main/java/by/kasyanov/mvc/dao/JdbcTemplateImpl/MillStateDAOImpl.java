@@ -1,6 +1,7 @@
 package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.MillStateDAO;
+import by.kasyanov.mvc.dao.mapper.MillStateMapper;
 import by.kasyanov.mvc.model.MillState;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -39,6 +40,9 @@ public class MillStateDAOImpl implements MillStateDAO {
 
     @Override
     public List<MillState> getAll() {
-        return null;
+        String query = "select * from state_mill";
+        List<MillState> millStates = jdbcTemplate.query(query, new MillStateMapper());
+
+        return millStates;
     }
 }

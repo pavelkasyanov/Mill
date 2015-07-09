@@ -1,6 +1,7 @@
 package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.ImageDAO;
+import by.kasyanov.mvc.dao.mapper.ImageMapper;
 import by.kasyanov.mvc.model.Image;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -40,6 +41,9 @@ public class ImageDAOImpl implements ImageDAO {
 
     @Override
     public List<Image> getAll() {
-        return null;
+        String query = "select * from images";
+        List<Image> images = jdbcTemplate.query(query, new ImageMapper());
+
+        return images;
     }
 }

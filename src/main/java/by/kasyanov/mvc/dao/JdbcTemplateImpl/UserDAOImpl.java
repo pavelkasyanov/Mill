@@ -1,6 +1,7 @@
 package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.UserDAO;
+import by.kasyanov.mvc.dao.mapper.UserMapper;
 import by.kasyanov.mvc.model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -39,6 +40,9 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> getAll() {
-        return null;
+        String query = "select * from users";
+        List<User> users = jdbcTemplate.query(query, new UserMapper());
+
+        return users;
     }
 }

@@ -1,6 +1,7 @@
 package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.EmailDAO;
+import by.kasyanov.mvc.dao.mapper.EmailMapper;
 import by.kasyanov.mvc.model.Email;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -40,6 +41,9 @@ public class EmailDAOImpl implements EmailDAO {
 
     @Override
     public List<Email> getAll() {
-        return null;
+        String query = "select * from emails";
+        List<Email> emails = jdbcTemplate.query(query, new EmailMapper());
+
+        return emails;
     }
 }
