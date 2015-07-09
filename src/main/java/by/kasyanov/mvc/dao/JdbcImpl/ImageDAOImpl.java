@@ -1,12 +1,12 @@
 package by.kasyanov.mvc.dao.JdbcImpl;
 
-import by.kasyanov.mvc.dao.EmailDAO;
-import by.kasyanov.mvc.model.Email;
+import by.kasyanov.mvc.dao.ImageDAO;
+import by.kasyanov.mvc.model.Image;
 
 import javax.sql.DataSource;
 import java.util.List;
 
-public class JdbcEmailDAOImpl implements EmailDAO {
+public class ImageDAOImpl implements ImageDAO {
 
     private DataSource dataSource;
 
@@ -15,17 +15,16 @@ public class JdbcEmailDAOImpl implements EmailDAO {
     }
 
     @Override
-    public void insert(Email email) {
-
+    public void insert(Image image) {
     }
 
     @Override
-    public Email getById(int id) {
+    public Image getById(int id) {
         return null;
     }
 
     @Override
-    public void update(Email email) {
+    public void update(Image image) {
 
     }
 
@@ -35,7 +34,7 @@ public class JdbcEmailDAOImpl implements EmailDAO {
     }
 
     @Override
-    public List<Email> getAll() {
+    public List<Image> getAll() {
         return null;
     }
 }

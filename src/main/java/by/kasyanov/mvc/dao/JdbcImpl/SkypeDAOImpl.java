@@ -1,13 +1,12 @@
 package by.kasyanov.mvc.dao.JdbcImpl;
 
-import by.kasyanov.mvc.dao.ImageDAO;
-import by.kasyanov.mvc.model.Image;
+import by.kasyanov.mvc.dao.SkypeDAO;
+import by.kasyanov.mvc.model.Skype;
 
 import javax.sql.DataSource;
 import java.util.List;
 
-public class JdbcImageDAOImpl implements ImageDAO {
-
+public class SkypeDAOImpl implements SkypeDAO {
     private DataSource dataSource;
 
     public void setDataSource(DataSource dataSource) {
@@ -15,16 +14,17 @@ public class JdbcImageDAOImpl implements ImageDAO {
     }
 
     @Override
-    public void insert(Image image) {
+    public void insert(Skype skype) {
+
     }
 
     @Override
-    public Image getById(int id) {
+    public Skype getById(int id) {
         return null;
     }
 
     @Override
-    public void update(Image image) {
+    public void update(Skype skype) {
 
     }
 
@@ -34,7 +34,7 @@ public class JdbcImageDAOImpl implements ImageDAO {
     }
 
     @Override
-    public List<Image> getAll() {
+    public List<Skype> getAll() {
         return null;
     }
 }

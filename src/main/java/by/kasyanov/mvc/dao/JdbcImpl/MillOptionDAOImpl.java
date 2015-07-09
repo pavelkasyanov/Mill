@@ -1,12 +1,12 @@
 package by.kasyanov.mvc.dao.JdbcImpl;
 
-import by.kasyanov.mvc.dao.SkypeDAO;
-import by.kasyanov.mvc.model.Skype;
+import by.kasyanov.mvc.dao.MillOptionDAO;
+import by.kasyanov.mvc.model.MillOption;
 
 import javax.sql.DataSource;
 import java.util.List;
 
-public class JdbcSkypeDAOImpl implements SkypeDAO {
+public class MillOptionDAOImpl implements MillOptionDAO {
     private DataSource dataSource;
 
     public void setDataSource(DataSource dataSource) {
@@ -14,17 +14,17 @@ public class JdbcSkypeDAOImpl implements SkypeDAO {
     }
 
     @Override
-    public void insert(Skype skype) {
+    public void insert(MillOption millOption) {
 
     }
 
     @Override
-    public Skype getById(int id) {
+    public MillOption getById(int id) {
         return null;
     }
 
     @Override
-    public void update(Skype skype) {
+    public void update(MillOption millOption) {
 
     }
 
@@ -34,7 +34,7 @@ public class JdbcSkypeDAOImpl implements SkypeDAO {
     }
 
     @Override
-    public List<Skype> getAll() {
+    public List<MillOption> getAll() {
         return null;
     }
 }

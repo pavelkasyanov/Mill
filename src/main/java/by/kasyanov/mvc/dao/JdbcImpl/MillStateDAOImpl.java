@@ -1,12 +1,12 @@
 package by.kasyanov.mvc.dao.JdbcImpl;
 
-import by.kasyanov.mvc.dao.UserDAO;
-import by.kasyanov.mvc.model.User;
+import by.kasyanov.mvc.dao.MillStateDAO;
+import by.kasyanov.mvc.model.MillState;
 
 import javax.sql.DataSource;
 import java.util.List;
 
-public class JdbcUserDAOImpl implements UserDAO {
+public class MillStateDAOImpl implements MillStateDAO {
     private DataSource dataSource;
 
     public void setDataSource(DataSource dataSource) {
@@ -14,17 +14,16 @@ public class JdbcUserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void insert(User user) {
-
+    public void insert(MillState millState) {
     }
 
     @Override
-    public User getById(int id) {
+    public MillState getById(int id) {
         return null;
     }
 
     @Override
-    public void update(User user) {
+    public void update(MillState millState) {
 
     }
 
@@ -34,7 +33,7 @@ public class JdbcUserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> getAll() {
+    public List<MillState> getAll() {
         return null;
     }
 }

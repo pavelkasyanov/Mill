@@ -6,7 +6,7 @@ import by.kasyanov.mvc.model.Producer;
 import javax.sql.DataSource;
 import java.util.List;
 
-public class JdbcProducerDAOImpl implements ProducerDAO {
+public class ProducerDAOImpl implements ProducerDAO {
     private DataSource dataSource;
 
     public void setDataSource(DataSource dataSource) {

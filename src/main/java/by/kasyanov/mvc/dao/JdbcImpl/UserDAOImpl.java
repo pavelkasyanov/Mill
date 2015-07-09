@@ -1,12 +1,12 @@
 package by.kasyanov.mvc.dao.JdbcImpl;
 
-import by.kasyanov.mvc.dao.PhoneOperatorDAO;
-import by.kasyanov.mvc.model.PhoneOperator;
+import by.kasyanov.mvc.dao.UserDAO;
+import by.kasyanov.mvc.model.User;
 
 import javax.sql.DataSource;
 import java.util.List;
 
-public class JdbcPhoneOperatorDAOImpl implements PhoneOperatorDAO {
+public class UserDAOImpl implements UserDAO {
     private DataSource dataSource;
 
     public void setDataSource(DataSource dataSource) {
@@ -14,17 +14,17 @@ public class JdbcPhoneOperatorDAOImpl implements PhoneOperatorDAO {
     }
 
     @Override
-    public void insert(PhoneOperator phoneOperator) {
+    public void insert(User user) {
 
     }
 
     @Override
-    public PhoneOperator getById(int id) {
+    public User getById(int id) {
         return null;
     }
 
     @Override
-    public void update(PhoneOperator phoneOperator) {
+    public void update(User user) {
 
     }
 
@@ -34,7 +34,7 @@ public class JdbcPhoneOperatorDAOImpl implements PhoneOperatorDAO {
     }
 
     @Override
-    public List<PhoneOperator> getAll() {
+    public List<User> getAll() {
         return null;
     }
 }

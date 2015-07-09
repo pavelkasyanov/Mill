@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcCountryDAOImpl implements CountryDAO {
+public class CountryDAOImpl implements CountryDAO {
 
     private DataSource dataSource;
 

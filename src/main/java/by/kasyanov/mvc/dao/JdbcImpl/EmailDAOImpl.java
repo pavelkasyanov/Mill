@@ -1,12 +1,13 @@
 package by.kasyanov.mvc.dao.JdbcImpl;
 
-import by.kasyanov.mvc.dao.MillOptionDAO;
-import by.kasyanov.mvc.model.MillOption;
+import by.kasyanov.mvc.dao.EmailDAO;
+import by.kasyanov.mvc.model.Email;
 
 import javax.sql.DataSource;
 import java.util.List;
 
-public class JdbcMillOptionDAOImpl implements MillOptionDAO {
+public class EmailDAOImpl implements EmailDAO {
+
     private DataSource dataSource;
 
     public void setDataSource(DataSource dataSource) {
@@ -14,17 +15,17 @@ public class JdbcMillOptionDAOImpl implements MillOptionDAO {
     }
 
     @Override
-    public void insert(MillOption millOption) {
+    public void insert(Email email) {
 
     }
 
     @Override
-    public MillOption getById(int id) {
+    public Email getById(int id) {
         return null;
     }
 
     @Override
-    public void update(MillOption millOption) {
+    public void update(Email email) {
 
     }
 
@@ -34,7 +35,7 @@ public class JdbcMillOptionDAOImpl implements MillOptionDAO {
     }
 
     @Override
-    public List<MillOption> getAll() {
+    public List<Email> getAll() {
         return null;
     }
 }

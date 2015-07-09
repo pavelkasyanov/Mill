@@ -6,7 +6,7 @@ import by.kasyanov.mvc.model.Phone;
 import javax.sql.DataSource;
 import java.util.List;
 
-public class JdbcPhoneDAOImpl implements PhoneDAO {
+public class PhoneDAOImpl implements PhoneDAO {
     private DataSource dataSource;
 
     public void setDataSource(DataSource dataSource) {

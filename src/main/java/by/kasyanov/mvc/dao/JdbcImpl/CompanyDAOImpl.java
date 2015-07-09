@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JdbcCompanyDAOImpl implements CompanyDAO {
+public class CompanyDAOImpl implements CompanyDAO {
 
     private DataSource dataSource;
 

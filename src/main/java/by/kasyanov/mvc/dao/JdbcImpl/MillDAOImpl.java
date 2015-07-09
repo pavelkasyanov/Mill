@@ -6,7 +6,7 @@ import by.kasyanov.mvc.model.Mill;
 import javax.sql.DataSource;
 import java.util.List;
 
-public class JdbcMillDAOImpl implements MillDAO {
+public class MillDAOImpl implements MillDAO {
     private DataSource dataSource;
 
     public void setDataSource(DataSource dataSource) {
