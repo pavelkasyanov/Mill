@@ -20,7 +20,12 @@ public class PhoneOperatorDAOImpl implements PhoneOperatorDAO {
 
     @Override
     public void insert(PhoneOperator phoneOperator) {
-
+        String sql = "INSERT INTO phone_operator " +
+                "(NAME, IMAGE)" +
+                "VALUES (?, ?)";
+        jdbcTemplate.update(sql, new Object[]{phoneOperator.getName(),
+                phoneOperator.getImage()
+        });
     }
 
     @Override

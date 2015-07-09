@@ -21,7 +21,20 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public void insert(Company company) {
+        String sql = "INSERT INTO company " +
+                "(NAME, CITY, COUNTRY_ID, STREET, HOME, OFFICE, POSTCODE, DESCRIPTION, SITE)" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
+        jdbcTemplate.update(sql, new Object[]{company.getName(),
+                company.getCity(),
+                company.getCountryId(),
+                company.getStreet(),
+                company.getHome(),
+                company.getOffice(),
+                company.getPostcode(),
+                company.getDescription(),
+                company.getSite()
+        });
     }
 
     @Override

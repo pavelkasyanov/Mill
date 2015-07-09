@@ -20,7 +20,12 @@ public class MillOptionDAOImpl implements MillOptionDAO {
 
     @Override
     public void insert(MillOption millOption) {
-
+        String sql = "INSERT INTO options_mill " +
+                "(NAME, ID_MILL)" +
+                "VALUES (?, ?)";
+        jdbcTemplate.update(sql, new Object[]{millOption.getName(),
+                millOption.getMillId()
+        });
     }
 
     @Override

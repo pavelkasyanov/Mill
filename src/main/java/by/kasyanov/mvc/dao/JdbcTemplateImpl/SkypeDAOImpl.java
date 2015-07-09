@@ -20,7 +20,13 @@ public class SkypeDAOImpl implements SkypeDAO {
 
     @Override
     public void insert(Skype skype) {
-
+        String sql = "INSERT INTO skype " +
+                "(ID_COMPANY, ID_USER, SKYPE)" +
+                "VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, new Object[]{skype.getCompanyId(),
+                skype.getUserId(),
+                skype.getSkypeLogin()
+        });
     }
 
     @Override

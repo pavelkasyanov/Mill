@@ -20,7 +20,10 @@ public class ProducerDAOImpl implements ProducerDAO {
 
     @Override
     public void insert(Producer producer) {
-
+        String sql = "INSERT INTO producer " +
+                "(NAME)" +
+                "VALUES (?)";
+        jdbcTemplate.update(sql, new Object[]{producer.getName()});
     }
 
     @Override

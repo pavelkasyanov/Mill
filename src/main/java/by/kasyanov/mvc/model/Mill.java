@@ -163,7 +163,7 @@ public class Mill {
         this.image = image;
     }
 
-    public boolean isSpecialOffer() {
+    public boolean getSpecialOffer() {
         return specialOffer;
     }
 

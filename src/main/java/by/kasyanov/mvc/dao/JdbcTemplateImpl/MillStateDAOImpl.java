@@ -20,7 +20,10 @@ public class MillStateDAOImpl implements MillStateDAO {
 
     @Override
     public void insert(MillState millState) {
-
+        String sql = "INSERT INTO state_mill " +
+                "(NAME)" +
+                "VALUES (?)";
+        jdbcTemplate.update(sql, new Object[]{millState.getName()});
     }
 
     @Override

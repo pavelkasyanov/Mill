@@ -20,7 +20,14 @@ public class PhoneDAOImpl implements PhoneDAO {
 
     @Override
     public void insert(Phone phone) {
-
+        String sql = "INSERT INTO phones " +
+                "(ID_COMPANY, ID_USER, NUMBER, ID_OPERATOR)" +
+                "VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, new Object[]{phone.getCompanyId(),
+                phone.getUserId(),
+                phone.getNumber(),
+                phone.getOperatorId()
+        });
     }
 
     @Override

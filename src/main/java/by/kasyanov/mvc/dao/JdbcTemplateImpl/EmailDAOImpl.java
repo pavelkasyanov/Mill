@@ -21,7 +21,14 @@ public class EmailDAOImpl implements EmailDAO {
 
     @Override
     public void insert(Email email) {
+        String sql = "INSERT INTO emails " +
+                "(ID_COMPANY, ID_USER, EMAIL)" +
+                "VALUES (?, ?, ?)";
 
+        jdbcTemplate.update(sql, new Object[]{email.getCompanyId(),
+                email.getUserId(),
+                email.getEmail()
+        });
     }
 
     @Override

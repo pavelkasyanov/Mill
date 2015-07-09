@@ -21,7 +21,11 @@ public class ImageDAOImpl implements ImageDAO {
 
     @Override
     public void insert(Image image) {
+        String sql = "INSERT INTO images " +
+                "(SRC, MILL_ID)" +
+                "VALUES (?, ?)";
 
+        jdbcTemplate.update(sql, new Object[]{image.getSrc(), image.getMillId()});
     }
 
     @Override

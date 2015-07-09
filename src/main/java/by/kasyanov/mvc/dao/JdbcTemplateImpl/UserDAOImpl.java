@@ -20,7 +20,14 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public void insert(User user) {
-
+        String sql = "INSERT INTO users " +
+                "(FIRST_NAME, SURNAME, PATRONYMIC, COMPANY_ID)" +
+                "VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(sql, new Object[]{user.getFirstName(),
+                user.getSurName(),
+                user.getPatronymic(),
+                user.getCompanyId()
+        });
     }
 
     @Override
