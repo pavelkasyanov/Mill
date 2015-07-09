@@ -31,12 +31,20 @@ public class CountryDAOImpl implements CountryDAO {
 
     @Override
     public void update(Country country) {
-
+        String sql = "update COUNTRY " +
+                "set NAME = ?, IMAGE = ? " +
+                " where id = ?";
+        jdbcTemplate.update(sql, new Object[]{country.getName(),
+                country.getImage(),
+                country.getId()
+        });
     }
 
     @Override
     public void deleteById(int id) {
-
+        String sql = "delete from COUNTRY " +
+                "where ID = ?";
+        jdbcTemplate.update(sql, new Object[]{id});
     }
 
     @Override

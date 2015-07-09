@@ -25,17 +25,10 @@ public class IndexController {
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
 
-        Country country = countryDAO.getById(5);
-        //countryDAO.insert(country);
-
         List<Country> countryList = countryDAO.getAll();
 
-        countryList.add(country);
-
-        List<User> users = userDAO.getAll();
-
         model.addAttribute("message", "Hello world!");
-        model.addAttribute("users", users);
+        model.addAttribute("countryList", countryList);
 
         return "index";
     }

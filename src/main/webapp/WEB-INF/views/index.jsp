@@ -4,7 +4,7 @@
 <body>
 <h1>${message}</h1>
 <hr>
-<c:forEach var="item" items="${users}">
+<c:forEach var="item" items="${countryList}">
     <h3>${item}</h3>
 </c:forEach>
 </body>
