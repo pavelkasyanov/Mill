@@ -1,7 +1,7 @@
 package by.kasyanov.mvc.dao;
 
 
-import by.kasyanov.mvc.model.Email;
+import by.kasyanov.mvc.entities.Email;
 import java.util.List;
 
 public interface EmailDAO {

@@ -1,9 +1,8 @@
 package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.CompanyDAO;
-import by.kasyanov.mvc.dao.CountryDAO;
 import by.kasyanov.mvc.dao.mapper.CompanyMapper;
-import by.kasyanov.mvc.model.Company;
+import by.kasyanov.mvc.entities.Company;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;

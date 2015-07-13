@@ -2,7 +2,7 @@ package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.ImageDAO;
 import by.kasyanov.mvc.dao.mapper.ImageMapper;
-import by.kasyanov.mvc.model.Image;
+import by.kasyanov.mvc.entities.Image;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;

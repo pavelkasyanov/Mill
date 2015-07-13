@@ -1,14 +1,15 @@
-package by.kasyanov.mvc.model;
+package by.kasyanov.mvc.entities;
 
-public class PhoneOperator {
+public class Country {
+
     private int id;
     private String name;
     private String image;
 
-    public PhoneOperator(){
+    public Country() {
     }
 
-    public PhoneOperator(int id, String name, String image) {
+    public Country(int id, String name, String image) {
         this.id = id;
         this.name = name;
         this.image = image;
@@ -36,5 +37,10 @@ public class PhoneOperator {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    @Override
+    public String toString() {
+        return "id: " + id + ", name: " + name + ", image: " + image;
     }
 }

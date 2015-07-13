@@ -2,7 +2,7 @@ package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.PhoneDAO;
 import by.kasyanov.mvc.dao.mapper.PhoneMapper;
-import by.kasyanov.mvc.model.Phone;
+import by.kasyanov.mvc.entities.Phone;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;

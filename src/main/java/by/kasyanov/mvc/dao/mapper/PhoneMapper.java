@@ -1,6 +1,6 @@
 package by.kasyanov.mvc.dao.mapper;
 
-import by.kasyanov.mvc.model.Phone;
+import by.kasyanov.mvc.entities.Phone;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

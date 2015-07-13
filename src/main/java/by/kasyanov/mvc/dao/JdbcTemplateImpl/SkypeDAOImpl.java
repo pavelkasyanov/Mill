@@ -2,7 +2,7 @@ package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.SkypeDAO;
 import by.kasyanov.mvc.dao.mapper.SkypeMapper;
-import by.kasyanov.mvc.model.Skype;
+import by.kasyanov.mvc.entities.Skype;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;

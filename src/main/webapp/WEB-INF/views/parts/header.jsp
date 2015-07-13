@@ -3,8 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<link rel="stylesheet" href="resources/bootstrap-3.3.5/css/bootstrap.css">
-<script type="text/javascript" src="resources/bootstrap-3.3.5/js/bootstrap.js" ></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.5/css/bootstrap.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap-3.3.5/js/bootstrap.js" ></script>
 
 <div class="row">
   <div class="col-md-2"></div>
@@ -45,8 +45,8 @@
 </div>
 <div class="row">
   <div class="nav nav-pills">
-    <li role="presentation"><a href="index">Home</a></li>
-    <li role="presentation"><a href="mills">Mills</a></li>
-    <li role="presentation"><a href="#">About</a></li>
+    <li role="presentation"><a href="${pageContext.request.contextPath}/index">Home</a></li>
+    <li role="presentation"><a href="${pageContext.request.contextPath}/mills">Mills</a></li>
+    <li role="presentation"><a href="${pageContext.request.contextPath}/">About</a></li>
   </div>
 </div>

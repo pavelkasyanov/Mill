@@ -2,7 +2,7 @@ package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.ProducerDAO;
 import by.kasyanov.mvc.dao.mapper.ProducerMapper;
-import by.kasyanov.mvc.model.Producer;
+import by.kasyanov.mvc.entities.Producer;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;

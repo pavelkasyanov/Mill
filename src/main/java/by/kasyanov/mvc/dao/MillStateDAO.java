@@ -1,6 +1,6 @@
 package by.kasyanov.mvc.dao;
 
-import by.kasyanov.mvc.model.MillState;
+import by.kasyanov.mvc.entities.MillState;
 
 import java.util.List;
 

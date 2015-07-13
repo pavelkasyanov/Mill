@@ -2,9 +2,8 @@ package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.CountryDAO;
 import by.kasyanov.mvc.dao.mapper.CountryMapper;
-import by.kasyanov.mvc.model.Country;
+import by.kasyanov.mvc.entities.Country;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 
 import javax.sql.DataSource;
 import java.util.List;

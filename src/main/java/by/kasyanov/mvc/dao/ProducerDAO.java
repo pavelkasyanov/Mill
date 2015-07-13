@@ -1,6 +1,6 @@
 package by.kasyanov.mvc.dao;
 
-import by.kasyanov.mvc.model.Producer;
+import by.kasyanov.mvc.entities.Producer;
 
 import java.util.List;
 
