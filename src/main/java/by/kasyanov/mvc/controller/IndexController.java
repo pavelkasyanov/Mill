@@ -23,14 +23,8 @@ public class IndexController {
     @Autowired
     UserDAO userDAO;
 
-    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/","/index"}, method = RequestMethod.GET)
     public String index(ModelMap model) {
-
-        List<Country> countryList = countryDAO.getAll();
-
-        model.addAttribute("message", "Hello world!");
-        model.addAttribute("countryList", countryList);
-
         return "index";
     }
 
@@ -41,11 +35,11 @@ public class IndexController {
 
         ModelAndView model = new ModelAndView();
         if (error != null) {
-            model.addObject("error", "Invalid username and password!");
+            model.addObject("error", "Invalid username or password!");
         }
 
         if (logout != null) {
-            model.addObject("msg", "You've been logged out successfully.");
+            //model.addObject("msg", "You've been logged out successfully.");
         }
         model.setViewName("index");
 
