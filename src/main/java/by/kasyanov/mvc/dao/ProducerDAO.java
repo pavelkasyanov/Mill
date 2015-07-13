@@ -10,4 +10,6 @@ public interface ProducerDAO {
     void update(Producer producer);
     void deleteById(int id);
     List<Producer> getAll();
+
+    Producer getByName(String name);
 }

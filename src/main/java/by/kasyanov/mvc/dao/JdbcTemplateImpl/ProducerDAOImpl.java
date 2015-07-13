@@ -50,4 +50,11 @@ public class ProducerDAOImpl implements ProducerDAO {
 
         return producers;
     }
+
+    @Override
+    public Producer getByName(String name) {
+        String query = "select * from producer where NAME = ?";
+        List<Producer> producers = jdbcTemplate.query(query, new Object[]{name}, new ProducerMapper());
+        return producers.get(0);
+    }
 }

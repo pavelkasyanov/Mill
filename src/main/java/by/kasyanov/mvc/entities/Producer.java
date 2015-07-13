@@ -1,6 +1,6 @@
 package by.kasyanov.mvc.entities;
 
-public class Producer {
+public class Producer implements Comparable<Producer> {
     private int id;
     private String name;
 
@@ -26,5 +26,10 @@ public class Producer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int compareTo(Producer o) {
+        return Integer.compare(this.id, o.id);
     }
 }

@@ -89,4 +89,14 @@ public class MillDAOImpl implements MillDAO {
 
         return mills;
     }
+
+    @Override
+    public List<Mill> sortByManufactureDate(int beginManufacture, int endManufacture) {
+        String query = "select * from mill where YEAR >= ? AND YEAR  <= ?";
+        List<Mill> mills = jdbcTemplate.query(query,
+                new Object[]{beginManufacture, endManufacture},
+                new MillMapper());
+
+        return mills;
+    }
 }

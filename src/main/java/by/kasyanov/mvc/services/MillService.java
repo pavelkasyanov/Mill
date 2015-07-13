@@ -13,4 +13,6 @@ public interface MillService {
     List<Mill> getAll();
 
     Producer getProducerForMill(int millId);
+
+    List<Mill> search(int beginYear, int endYear, String producerName);
 }

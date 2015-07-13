@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -31,6 +32,9 @@ public class MillController {
         model.addAttribute("mills", mills);
 
         List<Producer> producersList = producerDAO.getAll();
+
+        Collections.sort(producersList);
+
         model.addAttribute("producersList", producersList);
 
         return "mills";
@@ -46,5 +50,32 @@ public class MillController {
         model.addAttribute("millProducer", producer);
 
         return "mill";
+    }
+
+    @RequestMapping(value = "/search", method = RequestMethod.GET)
+    public String searchMills(ModelMap model,
+                              @RequestParam("beginYear") String beginYear,
+                              @RequestParam("endYear") String endYear,
+                              @RequestParam("millProducer") String millProducer) {
+
+        int beginYearParam = -1;
+        int endYearParam = -1;
+
+        if (beginYear != null && beginYear != "") {
+            beginYearParam = Integer.parseInt(beginYear);
+        }
+
+        if (endYear != null && endYear != "") {
+            endYearParam = Integer.parseInt(endYear);
+        }
+
+        List<Mill> mills = millService.search(beginYearParam, endYearParam, millProducer);
+
+        model.addAttribute("mills", mills);
+
+        List<Producer> producersList = producerDAO.getAll();
+        model.addAttribute("producersList", producersList);
+
+        return "mills";
     }
 }

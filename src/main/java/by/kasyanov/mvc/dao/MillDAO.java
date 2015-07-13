@@ -10,4 +10,6 @@ public interface MillDAO {
     void update(Mill mill);
     void deleteById(int id);
     List<Mill> getAll();
+
+    List<Mill> sortByManufactureDate(int beginManufacture, int endManufacture);
 }
