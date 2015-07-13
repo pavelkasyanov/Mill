@@ -2,7 +2,7 @@ package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.MillOptionDAO;
 import by.kasyanov.mvc.dao.mapper.MIllOptionMapper;
-import by.kasyanov.mvc.model.MillOption;
+import by.kasyanov.mvc.entities.MillOption;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;

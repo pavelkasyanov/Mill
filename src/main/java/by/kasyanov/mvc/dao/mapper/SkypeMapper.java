@@ -1,6 +1,6 @@
 package by.kasyanov.mvc.dao.mapper;
 
-import by.kasyanov.mvc.model.Skype;
+import by.kasyanov.mvc.entities.Skype;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

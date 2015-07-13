@@ -1,6 +1,6 @@
 package by.kasyanov.mvc.dao;
 
-import by.kasyanov.mvc.model.Skype;
+import by.kasyanov.mvc.entities.Skype;
 
 import java.util.List;
 

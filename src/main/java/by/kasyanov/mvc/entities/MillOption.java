@@ -1,16 +1,16 @@
-package by.kasyanov.mvc.model;
+package by.kasyanov.mvc.entities;
 
-public class Image {
+public class MillOption {
     private int id;
-    private String src;
+    private String name;
     private int millId;
 
-    public Image() {
+    public MillOption() {
     }
 
-    public Image(int id, String src, int millId) {
+    public MillOption(int id, String name, int millId) {
         this.id = id;
-        this.src = src;
+        this.name = name;
         this.millId = millId;
     }
 
@@ -22,12 +22,12 @@ public class Image {
         this.id = id;
     }
 
-    public String getSrc() {
-        return src;
+    public String getName() {
+        return name;
     }
 
-    public void setSrc(String src) {
-        this.src = src;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getMillId() {

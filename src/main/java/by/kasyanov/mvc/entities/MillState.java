@@ -1,13 +1,13 @@
-package by.kasyanov.mvc.model;
+package by.kasyanov.mvc.entities;
 
-public class Producer {
+public class MillState {
     private int id;
     private String name;
 
-    public Producer() {
+    public MillState() {
     }
 
-    public Producer(int id, String name) {
+    public MillState(int id, String name) {
         this.id = id;
         this.name = name;
     }

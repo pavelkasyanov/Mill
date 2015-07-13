@@ -1,6 +1,6 @@
 package by.kasyanov.mvc.dao.mapper;
 
-import by.kasyanov.mvc.model.Email;
+import by.kasyanov.mvc.entities.Email;
 import org.springframework.jdbc.core.RowMapper;
 
 import java.sql.ResultSet;

@@ -1,19 +1,19 @@
-package by.kasyanov.mvc.model;
+package by.kasyanov.mvc.entities;
 
-public class Email {
+public class Skype {
     private int id;
     private int companyId;
     private int userId;
-    private String email;
+    private String skypeLogin;
 
-    public Email() {
+    public Skype() {
     }
 
-    public Email(int id, int companyId, int userId, String email) {
+    public Skype(int id, int companyId, int userId, String skypeLogin) {
         this.id = id;
         this.companyId = companyId;
         this.userId = userId;
-        this.email = email;
+        this.skypeLogin = skypeLogin;
     }
 
     public int getId() {
@@ -40,11 +40,11 @@ public class Email {
         this.userId = userId;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSkypeLogin() {
+        return skypeLogin;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSkypeLogin(String skypeLogin) {
+        this.skypeLogin = skypeLogin;
     }
 }

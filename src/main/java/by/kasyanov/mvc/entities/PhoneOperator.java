@@ -1,15 +1,17 @@
-package by.kasyanov.mvc.model;
+package by.kasyanov.mvc.entities;
 
-public class MillState {
+public class PhoneOperator {
     private int id;
     private String name;
+    private String image;
 
-    public MillState() {
+    public PhoneOperator(){
     }
 
-    public MillState(int id, String name) {
+    public PhoneOperator(int id, String name, String image) {
         this.id = id;
         this.name = name;
+        this.image = image;
     }
 
     public int getId() {
@@ -26,5 +28,13 @@ public class MillState {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }

@@ -8,7 +8,7 @@
 	   http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
        <http auto-config="true" access-denied-page="/views/error403.jsp">
-              <intercept-url pattern="/mills*" access="ROLE_ADMIN,ROLE_USER" />
+              <intercept-url pattern="/mills/*" access="ROLE_ADMIN,ROLE_USER" />
               <form-login
                       login-page="/login"
                       default-target-url="/"
@@ -27,5 +27,8 @@
                      </user-service>
               </authentication-provider>
        </authentication-manager>
-       
+
+    <beans:bean id="webexpressionHandler"
+          class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler" />
+
 </beans:beans>

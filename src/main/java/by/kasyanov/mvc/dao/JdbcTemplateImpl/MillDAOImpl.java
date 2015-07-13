@@ -2,7 +2,7 @@ package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.MillDAO;
 import by.kasyanov.mvc.dao.mapper.MillMapper;
-import by.kasyanov.mvc.model.Mill;
+import by.kasyanov.mvc.entities.Mill;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -86,6 +86,16 @@ public class MillDAOImpl implements MillDAO {
     public List<Mill> getAll() {
         String query = "select * from mill";
         List<Mill> mills = jdbcTemplate.query(query, new MillMapper());
+
+        return mills;
+    }
+
+    @Override
+    public List<Mill> sortByManufactureDate(int beginManufacture, int endManufacture) {
+        String query = "select * from mill where YEAR >= ? AND YEAR  <= ?";
+        List<Mill> mills = jdbcTemplate.query(query,
+                new Object[]{beginManufacture, endManufacture},
+                new MillMapper());
 
         return mills;
     }

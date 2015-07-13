@@ -1,4 +1,4 @@
-package by.kasyanov.mvc.model;
+package by.kasyanov.mvc.entities;
 
 public class Mill {
     private int id;

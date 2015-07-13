@@ -1,9 +1,7 @@
-package by.kasyanov.mvc.controller;
+package by.kasyanov.mvc.controllers;
 
 import by.kasyanov.mvc.dao.CountryDAO;
 import by.kasyanov.mvc.dao.UserDAO;
-import by.kasyanov.mvc.model.Country;
-import by.kasyanov.mvc.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -11,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-
-import java.util.List;
 
 @Controller
 public class IndexController {
@@ -23,14 +19,8 @@ public class IndexController {
     @Autowired
     UserDAO userDAO;
 
-    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/","/index"}, method = RequestMethod.GET)
     public String index(ModelMap model) {
-
-        List<Country> countryList = countryDAO.getAll();
-
-        model.addAttribute("message", "Hello world!");
-        model.addAttribute("countryList", countryList);
-
         return "index";
     }
 
@@ -41,11 +31,11 @@ public class IndexController {
 
         ModelAndView model = new ModelAndView();
         if (error != null) {
-            model.addObject("error", "Invalid username and password!");
+            model.addObject("error", "Invalid username or password!");
         }
 
         if (logout != null) {
-            model.addObject("msg", "You've been logged out successfully.");
+            //entities.addObject("msg", "You've been logged out successfully.");
         }
         model.setViewName("index");
 

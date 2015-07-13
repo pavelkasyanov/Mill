@@ -1,6 +1,6 @@
 package by.kasyanov.mvc.dao;
 
-import by.kasyanov.mvc.model.Image;
+import by.kasyanov.mvc.entities.Image;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package by.kasyanov.mvc.dao;
 
-import by.kasyanov.mvc.model.Company;
+import by.kasyanov.mvc.entities.Company;
 
 import java.util.List;
 

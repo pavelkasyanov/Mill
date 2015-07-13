@@ -1,7 +1,7 @@
 package by.kasyanov.mvc.dao;
 
 
-import by.kasyanov.mvc.model.Country;
+import by.kasyanov.mvc.entities.Country;
 
 import java.util.List;
 

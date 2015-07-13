@@ -1,17 +1,15 @@
-package by.kasyanov.mvc.model;
+package by.kasyanov.mvc.entities;
 
-public class MillOption {
+public class Producer implements Comparable<Producer> {
     private int id;
     private String name;
-    private int millId;
 
-    public MillOption() {
+    public Producer() {
     }
 
-    public MillOption(int id, String name, int millId) {
+    public Producer(int id, String name) {
         this.id = id;
         this.name = name;
-        this.millId = millId;
     }
 
     public int getId() {
@@ -30,11 +28,8 @@ public class MillOption {
         this.name = name;
     }
 
-    public int getMillId() {
-        return millId;
-    }
-
-    public void setMillId(int millId) {
-        this.millId = millId;
+    @Override
+    public int compareTo(Producer o) {
+        return Integer.compare(this.id, o.id);
     }
 }

@@ -1,6 +1,6 @@
 package by.kasyanov.mvc.dao;
 
-import by.kasyanov.mvc.model.Phone;
+import by.kasyanov.mvc.entities.Phone;
 
 import java.util.List;
 
