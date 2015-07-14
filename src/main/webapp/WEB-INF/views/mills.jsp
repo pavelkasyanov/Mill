@@ -12,10 +12,9 @@
                 jQuery(document).ready(function ($) {
                     $('#mytabs').tab();
                 });
-
                 function setProducer(producerId, producerName) {
                     var filterResetImage = '<img id="resetFilterImg"' +
-                            'src="${pageContext.request.contextPath}/resources/jpg/filter-reset.png">';
+                            'src="<c:url value="/resources/jpg/filter-reset.png"/>"';
                     var linkResetFilter = '<a href="javascript:void(0)" '+'onclick="resetProducerFilter();" id="linkResetFilter">'+
                             filterResetImage+'</a>';
                     document.getElementById("li_tab_2").innerHTML = producerName + linkResetFilter;
@@ -42,7 +41,7 @@
 
                 function setYearSearchParam(e, id){
                     var filterYearResetImage = '<img id="resetYearFilterImg"' +
-                            'src="${pageContext.request.contextPath}/resources/jpg/filter-reset.png">';
+                            'src="<c:url value="/resources/jpg/filter-reset.png"/>">';
                     var linkYearResetFilter = '<a href="javasctript:void(0);" onclick="resetYearFilter();" id="linkResetFilter">'+
                             filterYearResetImage+'</a>';
 
@@ -60,10 +59,13 @@
 
                     return true;
                 }
+
             </script>
+           <%-- <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/mills_page.js">
+            </script>--%>
         </div>
         <Br>
-        <form class="form-inline" action="${pageContext.request.contextPath}/mills/search" method="get">
+        <form class="form-inline" action="<c:url value="/mills/search"/>" method="get">
             <div class="row tabs" id="mytabs">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#tab1" data-toggle="tab" id="li_tab_1">Year</a></li>
@@ -102,7 +104,8 @@
                             <ul>
                                 <c:forEach var="producerItem" items="${producersList}">
                                     <li>
-                                        <a href="javascript:void(0)" onclick="setProducer(${producerItem.id}, '${producerItem.name}')">
+                                        <a href="javascript:void(0)"
+                                           onclick="setProducer(${producerItem.id}, '${producerItem.name}')">
                                             ${producerItem.name}
                                         </a>
                                     </li>

@@ -13,7 +13,7 @@
   <div class="row">
     <div class="row">
       <div class="col-md-2">
-        <img src="${pageContext.request.contextPath}/resources/jpg/mills/${mill.image}" width="100" height="100">
+        <img src="<c:url value="/resources/jpg/mills/${mill.image}"/>" width="100" height="100">
       </div>
       <div class="col-md-6">
         <div class="row">

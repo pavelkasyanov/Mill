@@ -11,7 +11,7 @@
 
     <context:component-scan base-package="by.kasyanov.mvc"/>
 
-    <mvc:resources mapping="/resources/**" location="WEB-INF/resources/"/>
+    <mvc:resources mapping="resources/**" location="/resources/"/>
 
     <mvc:annotation-driven />
 

@@ -3,13 +3,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/bootstrap-3.3.5/css/bootstrap.css">
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/bootstrap-3.3.5/js/bootstrap.js" ></script>
+<link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.5/css/bootstrap.css"/> ">
+<script type="text/javascript" src="<c:url value="/resources/bootstrap-3.3.5/js/bootstrap.js"/>"></script>
 
 <div class="row">
   <div class="col-md-2"></div>
   <div class="col-md-8">
-    <a href="index"><h1 style="text-align: center">Hello World!</h1></a>
+    <a href="<c:url value="/"/>"><h1 style="text-align: center">Hello World!</h1></a>
   </div>
   <div  class="col-md-2">
     <sec:authorize access="!isAuthenticated()">
@@ -45,8 +45,8 @@
 </div>
 <div class="row">
   <div class="nav nav-pills">
-    <li role="presentation"><a href="${pageContext.request.contextPath}/index">Home</a></li>
-    <li role="presentation"><a href="${pageContext.request.contextPath}/mills">Mills</a></li>
-    <li role="presentation"><a href="${pageContext.request.contextPath}/">About</a></li>
+    <li role="presentation"><a href="<c:url value="/" />">Home</a></li>
+    <li role="presentation"><a href="<c:url value="/mills" />">Mills</a></li>
+    <li role="presentation"><a href="<c:url value="/" />">About</a></li>
   </div>
 </div>
