@@ -8,15 +8,15 @@
 	   http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
        <http auto-config="true" access-denied-page="/views/error403.jsp">
-              <intercept-url pattern="/mills/*" access="ROLE_ADMIN,ROLE_USER" />
-              <form-login
-                      login-page="/login"
-                      default-target-url="/"
-                      username-parameter="username"
-                      password-parameter="password"
-                      authentication-failure-url="/login?error"/>
-              <logout logout-success-url="/login?logout" />
-
+           <!--<intercept-url pattern="/mills/mill*" access="ROLE_ANONYMOUS" />-->
+           <intercept-url pattern="/mills/action/*" access="ROLE_ADMIN,ROLE_USER" />
+           <form-login
+                   login-page="/login"
+                   default-target-url="/"
+                   username-parameter="username"
+                   password-parameter="password"
+                   authentication-failure-url="/login?error"/>
+           <logout logout-success-url="/login?logout" />
        </http>
        
        <authentication-manager>
