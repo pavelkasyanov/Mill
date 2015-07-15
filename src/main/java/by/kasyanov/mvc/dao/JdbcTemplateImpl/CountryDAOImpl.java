@@ -21,7 +21,7 @@ public class CountryDAOImpl implements CountryDAO {
 
     @Override
     public void insert(Country country) {
-        String sql = "INSERT INTO COUNTRY " +
+        String sql = "INSERT INTO country " +
                 "(NAME, IMAGE)" +
                 "VALUES (?, ?)";
 
@@ -55,7 +55,7 @@ public class CountryDAOImpl implements CountryDAO {
 
     @Override
     public List<Country> getAll() {
-        String query = "select * from Country";
+        String query = "select * from country";
         List<Country> countryList = jdbcTemplate.query(query, new CountryMapper());
 
         return countryList;
