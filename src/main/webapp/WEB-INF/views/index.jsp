@@ -11,7 +11,7 @@
     </div>
     <div class="row">
         <hr>
-        <h1>This is start page</h1>
+        <h1>Sstart page</h1>
     </div>
     <footer>
         <jsp:include page="parts/footer.jsp" />

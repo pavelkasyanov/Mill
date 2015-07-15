@@ -14,5 +14,16 @@ public interface MillService {
 
     Producer getProducerForMill(int millId);
 
-    List<Mill> search(int beginYear, int endYear, String producerName);
+    List<Mill> search(int beginYear, int endYear, String producerName,
+                      int minLongitudinalTravelX,
+                      int maxLongitudinalTravelX,
+                      int minTransversalTravelY,
+                      int maxTransversalTravelY,
+                      int minVerticalTravelZ,
+                      int maxVerticalTravelZ,
+                      String cnc,
+                      int minTableLength,
+                      int maxTableLength,
+                      int minTableWidth,
+                      int maxTableWidth);
 }
