@@ -1,7 +1,10 @@
 package by.kasyanov.mvc.controllers;
 
 
+import by.kasyanov.mvc.dao.CountryDAO;
+import by.kasyanov.mvc.dao.JdbcTemplateImpl.CountryDAOImpl;
 import by.kasyanov.mvc.dao.ProducerDAO;
+import by.kasyanov.mvc.entities.Country;
 import by.kasyanov.mvc.entities.Mill;
 import by.kasyanov.mvc.entities.Producer;
 import by.kasyanov.mvc.services.MillService;
@@ -25,6 +28,9 @@ public class MillController {
     @Autowired
     ProducerDAO producerDAO;
 
+    @Autowired
+    CountryDAO countryDAO;
+
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
 
@@ -32,10 +38,13 @@ public class MillController {
         model.addAttribute("mills", mills);
 
         List<Producer> producersList = producerDAO.getAll();
-
         Collections.sort(producersList);
-
         model.addAttribute("producersList", producersList);
+
+        List<Country> countryList = countryDAO.getAll();
+        Collections.sort(countryList);
+        model.addAttribute("countryList", countryList);
+
 
         return "mills";
     }
@@ -56,11 +65,21 @@ public class MillController {
     public String searchMills(ModelMap model,
                               @RequestParam("beginYear") String beginYear,
                               @RequestParam("endYear") String endYear,
-                              @RequestParam("millProducer") String millProducer) {
+                              @RequestParam("millProducer") String millProducer,
+                              @RequestParam("minLongitudinalTravelX") String minLongitudinalTravelX,
+                              @RequestParam("maxLongitudinalTravelX") String maxLongitudinalTravelX,
+                              @RequestParam("minTransversalTravelY") String minTransversalTravelY,
+                              @RequestParam("maxTransversalTravelY") String maxTransversalTravelY,
+                              @RequestParam("minVerticalTravelZ") String minVerticalTravelZ,
+                              @RequestParam("maxVerticalTravelZ") String maxVerticalTravelZ,
+                              @RequestParam("CNC") String cnc,
+                              @RequestParam("minTableLength") String minTableLength,
+                              @RequestParam("maxTableLength") String maxTableLength,
+                              @RequestParam("minTableWidth") String minTableWidth,
+                              @RequestParam("maxTableWidth") String maxTableWidth) {
 
         int beginYearParam = -1;
         int endYearParam = -1;
-
         if (beginYear != null && beginYear != "") {
             beginYearParam = Integer.parseInt(beginYear);
         }
@@ -69,7 +88,58 @@ public class MillController {
             endYearParam = Integer.parseInt(endYear);
         }
 
-        List<Mill> mills = millService.search(beginYearParam, endYearParam, millProducer);
+        int minLongitudinalTravelXParam = -1;
+        int maxLongitudinalTravelXParam = -1;
+        if (minLongitudinalTravelX != null && !("".equals(minLongitudinalTravelX))) {
+            minLongitudinalTravelXParam = Integer.parseInt(minLongitudinalTravelX);
+        }
+        if (maxLongitudinalTravelX != null && !("".equals(maxLongitudinalTravelX))) {
+            maxLongitudinalTravelXParam = Integer.parseInt(maxLongitudinalTravelX);
+        }
+
+        int minTransversalTravelYParam = -1;
+        int maxTransversalTravelYParam = -1;
+        if (minTransversalTravelY != null && !("".equals(minTransversalTravelY))) {
+            minTransversalTravelYParam = Integer.parseInt(minTransversalTravelY);
+        }
+        if (maxTransversalTravelY != null && !("".equals(maxTransversalTravelY))) {
+            maxTransversalTravelYParam = Integer.parseInt(maxTransversalTravelY);
+        }
+
+        int minVerticalTravelZParam = -1;
+        int maxVerticalTravelZParam = -1;
+        if (minVerticalTravelZ != null && !("".equals(minVerticalTravelZ))) {
+            minVerticalTravelZParam = Integer.parseInt(minVerticalTravelZ);
+        }
+        if (maxVerticalTravelZ != null && !("".equals(maxVerticalTravelZ))) {
+            maxVerticalTravelZParam = Integer.parseInt(maxVerticalTravelZ);
+        }
+
+        int minTableLengthParam = -1;
+        int maxTableLengthParam = -1;
+        if (minTableLength != null && !("".equals(minTableLength))) {
+            minTableLengthParam = Integer.parseInt(minTableLength);
+        }
+        if (maxTableLength != null && !("".equals(maxTableLength))) {
+            maxTableLengthParam = Integer.parseInt(maxTableLength);
+        }
+
+        int minTableWidthParam = -1;
+        int maxTableWidthParam = -1;
+        if (minTableWidth != null && !("".equals(minTableWidth))) {
+            minTableWidthParam = Integer.parseInt(minTableWidth);
+        }
+        if (maxTableWidth != null && !("".equals(maxTableWidth))) {
+            maxTableWidthParam = Integer.parseInt(maxTableWidth);
+        }
+
+        List<Mill> mills = millService.search(beginYearParam, endYearParam, millProducer,
+                minLongitudinalTravelXParam, maxLongitudinalTravelXParam,
+                minTransversalTravelYParam, maxTransversalTravelYParam,
+                minVerticalTravelZParam, maxVerticalTravelZParam,
+                cnc,
+                minTableLengthParam, maxTableLengthParam,
+                minTableWidthParam, maxTableWidthParam);
 
         model.addAttribute("mills", mills);
 

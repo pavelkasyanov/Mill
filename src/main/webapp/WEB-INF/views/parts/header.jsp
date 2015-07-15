@@ -2,7 +2,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script src="https://code.jquery.com/jquery-latest.js"></script>
 <link rel="stylesheet" href="<c:url value="/resources/bootstrap-3.3.5/css/bootstrap.css"/> ">
 <script type="text/javascript" src="<c:url value="/resources/bootstrap-3.3.5/js/bootstrap.js"/>"></script>
 
@@ -47,6 +47,6 @@
   <div class="nav nav-pills">
     <li role="presentation"><a href="<c:url value="/" />">Home</a></li>
     <li role="presentation"><a href="<c:url value="/mills" />">Mills</a></li>
-    <li role="presentation"><a href="<c:url value="/" />">About</a></li>
+    <li role="presentation"><a href="<c:url value="/about" />">About</a></li>
   </div>
 </div>

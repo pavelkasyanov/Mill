@@ -211,7 +211,7 @@
                     <div class="col-md-2">
                         <img src="${pageContext.request.contextPath}/resources/jpg/mills/${mill.image}" width="100" height="100">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="row">
                             <a href="${pageContext.request.contextPath}/mills/mill?id=${mill.id}">${mill.name}</a>
                         </div>
@@ -221,6 +221,34 @@
                         <div class="row">
                             Year:${mill.year}
                         </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row">
+                            Longitudinal travel X: ${mill.sizeX}
+                        </div>
+                        <div class="row">
+                            Vertical travel Z: ${mill.sizeZ}
+                        </div>
+                        <div class="row">
+                            Table length: ${mill.tableLength}
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="row">
+                            Transversal travel Y: ${mill.sizeY}
+                        </div>
+                        <div class="row">
+                            CNC: ${mill.cncType}
+                        </div>
+                        <div class="row">
+                            Table width: ${mill.tableWidth}
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        Contry:${countryList[mill.countryProducingId -1].name}
+                    </div>
+                    <div class="col-md-1">
+                        ${mill.year}
                     </div>
                 </div>
                 <Br>

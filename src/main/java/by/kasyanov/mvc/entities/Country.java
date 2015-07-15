@@ -1,6 +1,8 @@
 package by.kasyanov.mvc.entities;
 
-public class Country {
+import by.kasyanov.mvc.dao.CompanyDAO;
+
+public class Country implements Comparable<Country> {
 
     private int id;
     private String name;
@@ -42,5 +44,10 @@ public class Country {
     @Override
     public String toString() {
         return "id: " + id + ", name: " + name + ", image: " + image;
+    }
+
+    @Override
+    public int compareTo(Country o) {
+        return Integer.compare(this.id, o.id);
     }
 }
