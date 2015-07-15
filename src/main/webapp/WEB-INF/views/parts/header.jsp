@@ -47,6 +47,6 @@
   <div class="nav nav-pills">
     <li role="presentation"><a href="<c:url value="/" />">Home</a></li>
     <li role="presentation"><a href="<c:url value="/mills" />">Mills</a></li>
-    <li role="presentation"><a href="<c:url value="/" />">About</a></li>
+    <li role="presentation"><a href="<c:url value="/about" />">About</a></li>
   </div>
 </div>

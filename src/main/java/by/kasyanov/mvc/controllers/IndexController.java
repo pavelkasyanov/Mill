@@ -43,8 +43,8 @@ public class IndexController {
 
     }
 
-    @RequestMapping(value = "/error403_1", method = RequestMethod.GET)
+    @RequestMapping(value = "/about", method = RequestMethod.GET)
     public String error() {
-        return "error403";
+        return "about";
     }
 }
