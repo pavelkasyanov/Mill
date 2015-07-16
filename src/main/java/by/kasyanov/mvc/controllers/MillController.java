@@ -8,13 +8,18 @@ import by.kasyanov.mvc.entities.Country;
 import by.kasyanov.mvc.entities.Mill;
 import by.kasyanov.mvc.entities.Producer;
 import by.kasyanov.mvc.services.MillService;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
@@ -147,5 +152,33 @@ public class MillController {
         model.addAttribute("producersList", producersList);
 
         return "mills";
+    }
+
+    @RequestMapping(value = "/action/add", method = RequestMethod.GET)
+    public String addMill(ModelMap model) {
+        return "addMill";
+    }
+
+    @RequestMapping(value = "/action/add", method = RequestMethod.POST)
+    @ResponseBody
+    public String addMill(@RequestParam("file") MultipartFile file)
+    {
+        if (!file.isEmpty()) {
+            try {
+                byte[] bytes = file.getBytes();
+
+                XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return "file add";
+    }
+
+    @RequestMapping(value = "/millPDFViewer", method = RequestMethod.GET)
+    public ModelAndView pdfMillView(ModelMap model, @RequestParam("id") int id) {
+
+        return new ModelAndView("millPDFBuilder", "listBooks", producerDAO.getAll());
     }
 }
