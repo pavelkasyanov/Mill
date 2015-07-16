@@ -1,8 +1,10 @@
 package by.kasyanov.mvc.services;
 
 import by.kasyanov.mvc.dao.MillDAO;
+import by.kasyanov.mvc.dao.MillStateDAO;
 import by.kasyanov.mvc.dao.ProducerDAO;
 import by.kasyanov.mvc.entities.Mill;
+import by.kasyanov.mvc.entities.MillState;
 import by.kasyanov.mvc.entities.Producer;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -22,6 +24,9 @@ public class MillServiceImpl implements MillService {
     MillDAO millDAO;
     @Autowired
     ProducerDAO producerDAO;
+
+    @Autowired
+    MillStateDAO millStateDAO;
 
     @Override
     public void insert(Mill mill) {
@@ -144,6 +149,11 @@ public class MillServiceImpl implements MillService {
         }
 
         return false;
+    }
+
+    @Override
+    public MillState getMillState(int MillId) {
+        return millStateDAO.getById(millDAO.getById(MillId).getMillStateId());
     }
 
     private List<Mill> selectByProducer(List<Mill> millList, String producerName) {

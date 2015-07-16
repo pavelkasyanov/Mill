@@ -3,18 +3,24 @@
 <!DOCTYPE html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Mill</title>
 </head>
 <body>
 <div class="container">
     <div class="row">
         <jsp:include page="parts/header.jsp" />
     </div>
+    <script type="text/javascript">
+        jQuery(document).ready( function() {
+            $("#menu_item_index").addClass("active");
+        });
+    </script>
     <div class="row">
 
     </div>
     <div class="row">
         <hr>
-        <h1>Sstart page(test:Начальная страница)</h1>
+        <h1>EfTech test task</h1>
     </div>
     <footer>
         <jsp:include page="parts/footer.jsp" />
