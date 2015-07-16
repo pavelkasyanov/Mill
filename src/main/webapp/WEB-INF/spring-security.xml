@@ -11,12 +11,12 @@
            <!--<intercept-url pattern="/mills/mill*" access="ROLE_ANONYMOUS" />-->
            <intercept-url pattern="/mills/action/*" access="ROLE_ADMIN,ROLE_USER" />
            <form-login
-                   login-page="/login"
+                   login-page="/authorization"
                    default-target-url="/"
                    username-parameter="username"
                    password-parameter="password"
-                   authentication-failure-url="/login?error"/>
-           <logout logout-success-url="/login?logout" />
+                   authentication-failure-url="/authorization?error"/>
+           <logout logout-success-url="/authorization?logout" />
        </http>
        
        <authentication-manager>
