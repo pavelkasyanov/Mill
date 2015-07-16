@@ -17,7 +17,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 public abstract class AbstractITextPdfView extends AbstractView {
 
     public AbstractITextPdfView() {
-        setContentType("application/pdf");
+        setContentType("application/pdf;charset=UTF-8");
+        //setCharacterEncoding
     }
 
     @Override
@@ -28,6 +29,9 @@ public abstract class AbstractITextPdfView extends AbstractView {
     @Override
     protected void renderMergedOutputModel(Map<String, Object> model,
                                            HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        response.setCharacterEncoding("UTF-8");
+
         // IE workaround: write into byte array first.
         ByteArrayOutputStream baos = createTemporaryOutputStream();
 

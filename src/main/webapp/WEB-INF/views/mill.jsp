@@ -32,11 +32,16 @@
         </div>
       </div>
     </div>
-    <sec:authorize access="hasRole('ROLE_ADMIN')">
+    <div class="row">
       <div class="row">
-        <a href="#">delete mill</a>
+        <a href="<c:url value="/pdfView/mill?id=${mill.id}" />">View PDF</a>
       </div>
-    </sec:authorize>
+      <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <div class="row">
+          <a href="#">delete mill</a>
+        </div>
+      </sec:authorize>
+    </div>
     <Br>
   </div>
   <footer>

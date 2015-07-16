@@ -3,6 +3,7 @@ package by.kasyanov.mvc.controllers;
 
 import by.kasyanov.mvc.dao.CountryDAO;
 import by.kasyanov.mvc.dao.JdbcTemplateImpl.CountryDAOImpl;
+import by.kasyanov.mvc.dao.MillDAO;
 import by.kasyanov.mvc.dao.ProducerDAO;
 import by.kasyanov.mvc.entities.Country;
 import by.kasyanov.mvc.entities.Mill;
@@ -21,7 +22,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/mills")
@@ -35,6 +38,9 @@ public class MillController {
 
     @Autowired
     CountryDAO countryDAO;
+
+    @Autowired
+    MillDAO millDAO;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
@@ -178,11 +184,5 @@ public class MillController {
             }
         }
         return "file add";
-    }
-
-    @RequestMapping(value = "/millPDFViewer", method = RequestMethod.GET)
-    public ModelAndView pdfMillView(ModelMap model, @RequestParam("id") int id) {
-
-        return new ModelAndView("millPDFBuilder", "listBooks", producerDAO.getAll());
     }
 }
