@@ -14,7 +14,7 @@
   <div  class="col-md-2">
     <sec:authorize access="!isAuthenticated()">
       <form name='loginForm'
-            action="<c:url value='j_spring_security_check' />" method='POST'>
+            action="<c:url value='/j_spring_security_check' />" method='POST'>
         <div class="form-group">
           <label>User:</label>
           <input type='text' name='username' value='' class="form-control input-sm" style="width: 150px"/>
@@ -38,8 +38,9 @@
     </sec:authorize>
     <sec:authorize access="isAuthenticated()">
       <c:url value="/j_spring_security_logout" var="logoutUrl" />
-      <p>Ваш логин: <sec:authentication property="principal.username" /></p>
-      <p><a href="${logoutUrl}" role="button">Выйти</a></p>
+      <p>Ваш логин: <sec:authentication property="principal.username" />
+        <a href="${logoutUrl}" role="button">Выйти</a></p>
+      <p><a href="<c:url value="/mills/action/add"/>">Add mill</a></p>
     </sec:authorize>
   </div>
 </div>

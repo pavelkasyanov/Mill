@@ -4,12 +4,15 @@ import by.kasyanov.mvc.dao.MillDAO;
 import by.kasyanov.mvc.dao.ProducerDAO;
 import by.kasyanov.mvc.entities.Mill;
 import by.kasyanov.mvc.entities.Producer;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -110,6 +113,37 @@ public class MillServiceImpl implements MillService {
         mills = this.selectByTableWidth(mills, minTableWidth, maxTableWidth);
 
         return mills;
+    }
+
+    @Override
+    public boolean addMillFromFile(MultipartFile file) {
+
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
+
+            XSSFSheet sheet = workbook.getSheetAt(0);
+            Iterator<Row> rowIterator = sheet.iterator();
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+                Iterator<Cell> cellIterator = row.cellIterator();
+
+                while (cellIterator.hasNext()) {
+
+                    Cell cell = cellIterator.next();
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_NUMERIC:
+                            break;
+                        case Cell.CELL_TYPE_STRING:
+                            break;
+                    }
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
     private List<Mill> selectByProducer(List<Mill> millList, String producerName) {

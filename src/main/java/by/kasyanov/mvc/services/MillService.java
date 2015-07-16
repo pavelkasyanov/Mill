@@ -2,6 +2,7 @@ package by.kasyanov.mvc.services;
 
 import by.kasyanov.mvc.entities.Mill;
 import by.kasyanov.mvc.entities.Producer;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -26,4 +27,6 @@ public interface MillService {
                       int maxTableLength,
                       int minTableWidth,
                       int maxTableWidth);
+
+    public boolean addMillFromFile(MultipartFile file);
 }

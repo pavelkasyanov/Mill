@@ -1,8 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <head>
   <title>Mill</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 <div class="container">
@@ -29,6 +31,16 @@
           Description:${mill.description}
         </div>
       </div>
+    </div>
+    <div class="row">
+      <div class="row">
+        <a href="<c:url value="/pdfView/mill?id=${mill.id}" />">View PDF</a>
+      </div>
+      <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <div class="row">
+          <a href="#">delete mill</a>
+        </div>
+      </sec:authorize>
     </div>
     <Br>
   </div>
