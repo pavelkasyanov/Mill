@@ -50,7 +50,6 @@ public class MillController {
         Collections.sort(countryList);
         model.addAttribute("countryList", countryList);
 
-
         return "mills";
     }
 
@@ -149,7 +148,12 @@ public class MillController {
         model.addAttribute("mills", mills);
 
         List<Producer> producersList = producerDAO.getAll();
+        Collections.sort(producersList);
         model.addAttribute("producersList", producersList);
+
+        List<Country> countryList = countryDAO.getAll();
+        Collections.sort(countryList);
+        model.addAttribute("countryList", countryList);
 
         return "mills";
     }
