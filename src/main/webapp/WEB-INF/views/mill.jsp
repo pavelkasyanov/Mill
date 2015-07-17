@@ -10,6 +10,11 @@
 <div class="container">
   <div class="row">
     <jsp:include page="parts/header.jsp" />
+    <script type="text/javascript">
+      jQuery(document).ready( function() {
+        $("#menu_item_mills").addClass("active");
+      });
+    </script>
   </div>
   <Br><Br>
   <div class="row">
@@ -33,7 +38,6 @@
       </div>
     </div>
     <div class="row">
-      <c:out value="${millPath}"/>:
       <div class="row">
         <a href="<c:url value="/pdfView/mill?id=${mill.id}" />">View PDF</a>
       </div>
