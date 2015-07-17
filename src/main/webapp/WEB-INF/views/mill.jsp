@@ -10,6 +10,11 @@
 <div class="container">
   <div class="row">
     <jsp:include page="parts/header.jsp" />
+    <script type="text/javascript">
+      jQuery(document).ready( function() {
+        $("#menu_item_mills").addClass("active");
+      });
+    </script>
   </div>
   <Br><Br>
   <div class="row">
