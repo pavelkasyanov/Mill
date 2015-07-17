@@ -70,8 +70,9 @@ public class MillController {
         model.addAttribute("mill", mill);
         model.addAttribute("millProducer", producer);
 
-        model.addAttribute("millPath", request.getSession().getServletContext()
-                .getRealPath("/resources/jpg/mills/" + mill.getImage()));
+        /*model.addAttribute("millPath", request.getSession().getServletContext()
+                .getRealPath("/resources/jpg/mills/" + mill.getImage()));*/
+        model.addAttribute("millPath", System.getenv("OPENSHIFT_DATA_DIR"));
 
         return "mill";
     }

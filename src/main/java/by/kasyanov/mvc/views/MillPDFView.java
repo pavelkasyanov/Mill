@@ -8,10 +8,12 @@ import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.codec.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -30,9 +32,12 @@ public class MillPDFView extends AbstractITextPdfView {
         Mill mill = millDAO.getById(millId);
         MillState millState = (MillState) model.get("millState");
 
-        String imagePath = this.getServletContext().getRealPath("/resources/jpg/mills/" + mill.getImage());
+        String imagePath = this.getServletContext().getResource("/resources/jpg/mills/" + mill.getImage()).toString();
         //String imagePath = (String) model.get("imagePath");
-        System.out.println(imagePath);
+        //System.out.println(imagePath);
+
+        //InputStream image = this.getServletContext().getResourceAsStream("/resources/jpg/mills/" + mill.getImage());
+        //this.getServletContext().getResource("/resources/jpg/mills/" + mill.getImage()).toString();
 
         new MillPDFBuilder().build(document, imagePath, mill, producer, null, millState);
     }
