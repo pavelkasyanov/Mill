@@ -34,7 +34,7 @@ public class MillPDFBuilder {
 
             //document.add(new Paragraph(mIll.getDescription(), font));
 
-            Image image = Image.getInstance(imageUrl + "/mills/" + mIll.getImage());
+            Image image = Image.getInstance(imageUrl);
             image.setAlignment(Element.ALIGN_CENTER);
             image.scaleAbsolute(200, 200);
             document.add(image);
