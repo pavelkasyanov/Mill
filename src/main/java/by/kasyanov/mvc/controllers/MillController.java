@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -69,10 +70,6 @@ public class MillController {
 
         model.addAttribute("mill", mill);
         model.addAttribute("millProducer", producer);
-
-        /*model.addAttribute("millPath", request.getSession().getServletContext()
-                .getRealPath("/resources/jpg/mills/" + mill.getImage()));*/
-        model.addAttribute("millPath", System.getenv("OPENSHIFT_DATA_DIR"));
 
         return "mill";
     }

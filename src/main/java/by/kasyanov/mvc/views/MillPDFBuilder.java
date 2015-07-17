@@ -33,12 +33,11 @@ public class MillPDFBuilder {
             Font font = new Font(bf);
 
             //document.add(new Paragraph(mIll.getDescription(), font));
-
-            //Image image = Image.getInstance(imageUrl);
-            //image.setAlignment(Element.ALIGN_CENTER);
-            //image.scaleAbsolute(200, 200);
-            //document.add(image);
-            document.add(new Paragraph(imageUrl, font));
+            Image image = Image.getInstance(imageUrl);
+            image.setAlignment(Element.ALIGN_CENTER);
+            image.scaleAbsolute(200, 200);
+            document.add(image);
+            //document.add(new Paragraph(imageUrl, font));
 
             document.add(new Paragraph(mIll.getDescription(), font));
 

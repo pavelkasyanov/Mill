@@ -33,11 +33,6 @@ public class MillPDFView extends AbstractITextPdfView {
         MillState millState = (MillState) model.get("millState");
 
         String imagePath = this.getServletContext().getResource("/resources/jpg/mills/" + mill.getImage()).toString();
-        //String imagePath = (String) model.get("imagePath");
-        //System.out.println(imagePath);
-
-        //InputStream image = this.getServletContext().getResourceAsStream("/resources/jpg/mills/" + mill.getImage());
-        //this.getServletContext().getResource("/resources/jpg/mills/" + mill.getImage()).toString();
 
         new MillPDFBuilder().build(document, imagePath, mill, producer, null, millState);
     }

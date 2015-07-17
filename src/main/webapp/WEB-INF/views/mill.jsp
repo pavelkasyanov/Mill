@@ -33,7 +33,6 @@
       </div>
     </div>
     <div class="row">
-      <c:out value="${millPath}"/>:
       <div class="row">
         <a href="<c:url value="/pdfView/mill?id=${mill.id}" />">View PDF</a>
       </div>
