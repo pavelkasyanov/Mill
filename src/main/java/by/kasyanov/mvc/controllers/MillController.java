@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
@@ -60,13 +61,17 @@ public class MillController {
     }
 
     @RequestMapping(value = "/mill", method = RequestMethod.GET)
-    public String getMill(ModelMap model, @RequestParam("id") Integer id) {
+    public String getMill(ModelMap model, @RequestParam("id") Integer id,
+                          HttpServletRequest request) {
 
         Mill mill = millService.getById(id);
         Producer producer = millService.getProducerForMill(mill.getId());
 
         model.addAttribute("mill", mill);
         model.addAttribute("millProducer", producer);
+
+        model.addAttribute("millPath", request.getSession().getServletContext()
+                .getRealPath("/resources/jpg/mills/" + mill.getImage()));
 
         return "mill";
     }
