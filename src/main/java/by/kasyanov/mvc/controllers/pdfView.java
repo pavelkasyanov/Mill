@@ -37,7 +37,7 @@ public class pdfView {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("millId", id);
         params.put("millDAO", millDAO);
-        params.put("imagePath", request.getSession().getServletContext().getRealPath("/resources/jpg/"));
+        //params.put("imagePath", request.getSession().getServletContext().getRealPath("/resources/jpg/"));
         params.put("producer", millService.getProducerForMill(id));
         params.put("millState", millService.getMillState(id));
 
