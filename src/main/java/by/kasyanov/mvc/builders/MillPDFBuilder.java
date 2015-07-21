@@ -1,4 +1,4 @@
-package by.kasyanov.mvc.views;
+package by.kasyanov.mvc.builders;
 
 import by.kasyanov.mvc.dao.MillDAO;
 import by.kasyanov.mvc.entities.Country;

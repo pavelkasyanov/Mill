@@ -8,6 +8,7 @@ import by.kasyanov.mvc.entities.MillState;
 import by.kasyanov.mvc.entities.Producer;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -154,6 +155,42 @@ public class MillServiceImpl implements MillService {
     @Override
     public MillState getMillState(int MillId) {
         return millStateDAO.getById(millDAO.getById(MillId).getMillStateId());
+    }
+
+    @Override
+    public Mill parseData(XSSFWorkbook workbook) {
+        Sheet sheet = workbook.getSheetAt(0);
+        Row rowTemp = sheet.getRow(0);
+        int rowCount = 13;
+        int cellCount = rowTemp.getLastCellNum();
+        Row row = null;
+        Cell cell = null;
+        for(int i = 0; i < cellCount; i++) {
+            row = sheet.getRow(0);//name
+            cell = row.getCell(i);
+            if (cell != null) {
+                String str = cell.toString();
+                str = str.trim();
+                System.out.println("mill name:" + str);
+            }
+
+            row = sheet.getRow(1);//country
+            cell = row.getCell(i);
+            if (cell != null) {
+                String str = cell.toString();
+                str = str.trim();
+                System.out.println("mill country:" + str);
+            }
+
+            row = sheet.getRow(2);//year
+            cell = row.getCell(i);
+            if (cell != null) {
+                String str = cell.toString();
+                str = str.trim();
+                System.out.println("mill year:" + str);
+            }
+        }
+        return null;
     }
 
     private List<Mill> selectByProducer(List<Mill> millList, String producerName) {

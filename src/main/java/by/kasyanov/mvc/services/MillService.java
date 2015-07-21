@@ -3,6 +3,7 @@ package by.kasyanov.mvc.services;
 import by.kasyanov.mvc.entities.Mill;
 import by.kasyanov.mvc.entities.MillState;
 import by.kasyanov.mvc.entities.Producer;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -32,4 +33,6 @@ public interface MillService {
     boolean addMillFromFile(MultipartFile file);
 
     MillState getMillState(int MillId);
+
+    Mill parseData(XSSFWorkbook workbook);
 }

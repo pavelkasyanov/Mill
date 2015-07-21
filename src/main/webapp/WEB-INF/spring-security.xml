@@ -11,7 +11,7 @@
            <!--<intercept-url pattern="/mills/mill*" access="ROLE_ANONYMOUS" />-->
            <intercept-url pattern="/mills/action/*" access="ROLE_ADMIN,ROLE_USER" />
            <form-login
-                   login-page="/authorization"
+                   login-page="/login"
                    default-target-url="/"
                    username-parameter="username"
                    password-parameter="password"
