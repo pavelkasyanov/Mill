@@ -1,8 +1,11 @@
 package by.kasyanov.mvc.services;
 
+import by.kasyanov.mvc.builders.MillExelBuilder;
+import by.kasyanov.mvc.dao.CountryDAO;
 import by.kasyanov.mvc.dao.MillDAO;
 import by.kasyanov.mvc.dao.MillStateDAO;
 import by.kasyanov.mvc.dao.ProducerDAO;
+import by.kasyanov.mvc.entities.Country;
 import by.kasyanov.mvc.entities.Mill;
 import by.kasyanov.mvc.entities.MillState;
 import by.kasyanov.mvc.entities.Producer;
@@ -28,6 +31,9 @@ public class MillServiceImpl implements MillService {
 
     @Autowired
     MillStateDAO millStateDAO;
+
+    @Autowired
+    CountryDAO countryDAO;
 
     @Override
     public void insert(Mill mill) {
@@ -157,42 +163,6 @@ public class MillServiceImpl implements MillService {
         return millStateDAO.getById(millDAO.getById(MillId).getMillStateId());
     }
 
-    @Override
-    public Mill parseData(XSSFWorkbook workbook) {
-        Sheet sheet = workbook.getSheetAt(0);
-        Row rowTemp = sheet.getRow(0);
-        int rowCount = 13;
-        int cellCount = rowTemp.getLastCellNum();
-        Row row = null;
-        Cell cell = null;
-        for(int i = 0; i < cellCount; i++) {
-            row = sheet.getRow(0);//name
-            cell = row.getCell(i);
-            if (cell != null) {
-                String str = cell.toString();
-                str = str.trim();
-                System.out.println("mill name:" + str);
-            }
-
-            row = sheet.getRow(1);//country
-            cell = row.getCell(i);
-            if (cell != null) {
-                String str = cell.toString();
-                str = str.trim();
-                System.out.println("mill country:" + str);
-            }
-
-            row = sheet.getRow(2);//year
-            cell = row.getCell(i);
-            if (cell != null) {
-                String str = cell.toString();
-                str = str.trim();
-                System.out.println("mill year:" + str);
-            }
-        }
-        return null;
-    }
-
     private List<Mill> selectByProducer(List<Mill> millList, String producerName) {
 
         final Producer producer = producerDAO.getByName(producerName);
@@ -244,8 +214,9 @@ public class MillServiceImpl implements MillService {
 
     private List<Mill> selectByCnc(List<Mill> millList, String cnc) {
         List<Mill> result = new ArrayList<Mill>();
+        cnc = cnc.trim();
         for(Mill item : millList) {
-            if (item.getCncType().equals(cnc)) {
+            if (item.getCncType().equalsIgnoreCase(cnc)) {
                 result.add(item);
             }
         }
@@ -270,6 +241,67 @@ public class MillServiceImpl implements MillService {
             if (item.getTableLength() >= minParam && item.getTableLength() <= maxParam) {
                 result.add(item);
             }
+        }
+
+        return result;
+    }
+
+    @Override
+    public void parseData(XSSFWorkbook workbook) {
+        Sheet sheet = workbook.getSheetAt(0);
+        Row rowTemp = sheet.getRow(0);
+        int rowCount = 13;
+        int cellCount = rowTemp.getLastCellNum();
+        Row row = null;
+        Cell cell = null;
+        for(int i = 0; i < cellCount; i++) {
+            MillExelBuilder millExelBuilder = new MillExelBuilder();
+
+            Mill mill = millExelBuilder.build(sheet, i);
+
+            String state = millExelBuilder.getParam(15, i);
+            MillState millState = millStateDAO.getByName(state);
+            mill.setMillStateId(millState.getId());
+
+            String millCountry = millExelBuilder.getParam(2, i);
+            Country country = countryDAO.getByName(millCountry);
+            mill.setCountryProducingId(country.getId());
+
+            String producerStr = millExelBuilder.getParam(1, i);
+            Producer producer = producerDAO.getByName(producerStr);
+            mill.setProducerId(producer.getId());
+
+
+            mill.setDescription("descroption");
+            mill.setSpindleCooling("123");
+
+            millDAO.insert(mill);
+
+            String millOptions = this.getParam(sheet, 13, i);
+            System.out.println("mill Options:" + millOptions);
+        }
+    }
+
+    private String getParam(Sheet sheet, int i, int j){
+        Row row = sheet.getRow(i);
+        Cell cell = row.getCell(j);
+
+        if (cell != null) {
+            String str = cell.toString();
+            str = str.trim();
+
+            return str;
+        }
+
+        return null;
+    }
+
+    private List<Integer> parseIntParams(String params, String separator) {
+        List<Integer> result = new ArrayList<Integer>();
+
+        for (String str : params.split(separator)) {
+            int temp = Integer.valueOf(str);
+            result.add(temp);
         }
 
         return result;

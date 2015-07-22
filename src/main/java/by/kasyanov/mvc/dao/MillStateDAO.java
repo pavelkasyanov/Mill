@@ -10,4 +10,6 @@ public interface MillStateDAO {
     void update(MillState millState);
     void deleteById(int id);
     List<MillState> getAll();
+
+    MillState getByName(String name);
 }

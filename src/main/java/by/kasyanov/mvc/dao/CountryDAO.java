@@ -12,4 +12,6 @@ public interface CountryDAO {
     void update(Country country);
     void deleteById(int id);
     List<Country> getAll();
+
+    Country getByName(String name);
 }

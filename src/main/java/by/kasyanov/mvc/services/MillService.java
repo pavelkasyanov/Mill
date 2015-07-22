@@ -34,5 +34,5 @@ public interface MillService {
 
     MillState getMillState(int MillId);
 
-    Mill parseData(XSSFWorkbook workbook);
+    void parseData(XSSFWorkbook workbook);
 }

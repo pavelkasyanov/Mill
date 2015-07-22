@@ -33,10 +33,10 @@ public class Mill {
     private int tableWidth;
     private int tableWeightMax;
 
-    private int ToolShoopNumber;
-    private int ToolShoopMaxD;
-    private int ToolShoopWeightMax;
-    private float ToolShoopChangeTime;
+    private int toolShoopNumber;
+    private int toolShoopMaxD;
+    private int toolShoopWeightMax;
+    private float toolShoopChangeTime;
 
     private float positioningAccuracy;
     private float positioningRepeatability;
@@ -83,10 +83,10 @@ public class Mill {
         this.tableLength = tableLength;
         this.tableWidth = tableWidth;
         this.tableWeightMax = tableWeightMax;
-        ToolShoopNumber = toolShoopNumber;
-        ToolShoopMaxD = toolShoopMaxD;
-        ToolShoopWeightMax = toolShoopWeightMax;
-        ToolShoopChangeTime = toolShoopChangeTime;
+        this.toolShoopNumber = toolShoopNumber;
+        this.toolShoopMaxD = toolShoopMaxD;
+        this.toolShoopWeightMax = toolShoopWeightMax;
+        this.toolShoopChangeTime = toolShoopChangeTime;
         this.positioningAccuracy = positioningAccuracy;
         this.positioningRepeatability = positioningRepeatability;
     }
@@ -308,35 +308,35 @@ public class Mill {
     }
 
     public int getToolShoopNumber() {
-        return ToolShoopNumber;
+        return toolShoopNumber;
     }
 
     public void setToolShoopNumber(int toolShoopNumber) {
-        ToolShoopNumber = toolShoopNumber;
+        this.toolShoopNumber = toolShoopNumber;
     }
 
     public int getToolShoopMaxD() {
-        return ToolShoopMaxD;
+        return toolShoopMaxD;
     }
 
     public void setToolShoopMaxD(int toolShoopMaxD) {
-        ToolShoopMaxD = toolShoopMaxD;
+        this.toolShoopMaxD = toolShoopMaxD;
     }
 
     public int getToolShoopWeightMax() {
-        return ToolShoopWeightMax;
+        return toolShoopWeightMax;
     }
 
     public void setToolShoopWeightMax(int toolShoopWeightMax) {
-        ToolShoopWeightMax = toolShoopWeightMax;
+        this.toolShoopWeightMax = toolShoopWeightMax;
     }
 
     public float getToolShoopChangeTime() {
-        return ToolShoopChangeTime;
+        return toolShoopChangeTime;
     }
 
     public void setToolShoopChangeTime(float toolShoopChangeTime) {
-        ToolShoopChangeTime = toolShoopChangeTime;
+        this.toolShoopChangeTime = toolShoopChangeTime;
     }
 
     public float getPositioningAccuracy() {

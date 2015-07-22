@@ -171,20 +171,22 @@ public class MillController {
     }
 
     @RequestMapping(value = "/action/add", method = RequestMethod.POST)
-    @ResponseBody
-    public String addMill(@RequestParam("file") MultipartFile file)
+    public String addMill(@RequestParam("file") MultipartFile file, ModelMap model)
     {
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
 
                 XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
-               Mill mIll = millService.parseData(workbook);
+
+                millService.parseData(workbook);
+
+                model.addAttribute("addResult", "done");
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return "file add";
+        return "addMill";
     }
 }
