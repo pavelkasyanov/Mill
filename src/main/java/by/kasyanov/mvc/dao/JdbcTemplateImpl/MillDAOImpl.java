@@ -58,7 +58,9 @@ public class MillDAOImpl implements MillDAO {
 
     @Override
     public void deleteById(int id) {
-
+        String query = "delete from mill where id=:id";
+        SqlParameterSource paramSource = new MapSqlParameterSource("id", id);
+        jdbcTemplate.update(query, paramSource);
     }
 
     @Override

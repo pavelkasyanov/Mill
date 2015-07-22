@@ -35,15 +35,25 @@
         <div class="row">
           Description:${mill.description}
         </div>
+        <div class="row">
+          <div class="col-md-2">
+          <a href="<c:url value="/pdfView/mill?id=${mill.id}" />">
+            <input type="button" class="btn btn-primary" value="View PDF" />
+          </a>
+          </div>
+          <div class="col-md-2">
+            <a href="<c:url value="/mills/action/delete/${mill.id}"/>">
+              <input type="button" class="btn btn-primary" value="delete mill" />
+            </a>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
       <div class="row">
-        <a href="<c:url value="/pdfView/mill?id=${mill.id}" />">View PDF</a>
       </div>
       <sec:authorize access="hasRole('ROLE_ADMIN')">
         <div class="row">
-          <a href="#">delete mill</a>
         </div>
       </sec:authorize>
     </div>

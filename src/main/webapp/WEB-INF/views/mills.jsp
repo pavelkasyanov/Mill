@@ -248,7 +248,12 @@
                         Contry:${countryList[mill.countryProducingId -1].name}
                     </div>
                     <div class="col-md-1">
-                        ${mill.year}
+                        <div class="row">
+                            ${mill.year}
+                        </div>
+                        <div class="row">
+                            ${mill.price}€
+                        </div>
                     </div>
                 </div>
                 <Br>
