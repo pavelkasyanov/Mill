@@ -6,6 +6,7 @@ import by.kasyanov.mvc.entities.MillState;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
+import java.sql.SQLDataException;
 import java.util.List;
 
 public class MillStateDAOImpl implements MillStateDAO {
@@ -29,8 +30,17 @@ public class MillStateDAOImpl implements MillStateDAO {
     @Override
     public MillState getById(int id) {
         String query = "select * from state_mill where ID = ?";
-        List<MillState> states = jdbcTemplate.query(query, new Object[]{id}, new MillStateMapper());
-        return states.get(0);
+        try {
+            List<MillState> states = jdbcTemplate.query(query, new Object[]{id}, new MillStateMapper());
+            return states.get(0);
+        }catch (IndexOutOfBoundsException e) {
+            System.err.println("error get state_mill from param id=" + id);
+        }
+        catch (Exception e) {
+            //e.printStackTrace();
+        }
+
+        return null;
     }
 
     @Override
@@ -53,8 +63,14 @@ public class MillStateDAOImpl implements MillStateDAO {
 
     @Override
     public MillState getByName(String name) {
-        String query = "select * from state_mill where NAME = ?";
-        List<MillState> states = jdbcTemplate.query(query, new Object[]{name}, new MillStateMapper());
-        return states.get(0);
+        try {
+            String query = "select * from state_mill where NAME = ?";
+            List<MillState> states = jdbcTemplate.query(query, new Object[]{name}, new MillStateMapper());
+            return states.get(0);
+        }catch (Exception e) {
+            System.err.println("IndexOutOfBoundsException MillState.getByName:name=" + name);
+
+            throw new RuntimeException("IndexOutOfBoundsException MillState.getByName:name=" + name);
+        }
     }
 }
