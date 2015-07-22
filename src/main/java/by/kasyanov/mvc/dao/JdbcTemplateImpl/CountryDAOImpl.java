@@ -60,4 +60,11 @@ public class CountryDAOImpl implements CountryDAO {
 
         return countryList;
     }
+
+    @Override
+    public Country getByName(String name) {
+        String query = "select * from Country where NAME = ?";
+        List<Country> country = jdbcTemplate.query(query, new Object[]{name}, new CountryMapper());
+        return country.get(0);
+    }
 }

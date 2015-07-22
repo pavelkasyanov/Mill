@@ -10,11 +10,13 @@
     <jsp:include page="parts/header.jsp" />
   </div>
   <div class="row">
-
-  </div>
-  <div class="row">
     <hr>
     <form action="<c:url value="/mills/action/add"/>" method="post" enctype="multipart/form-data">
+      <c:if test="${not empty addResult}">
+        <div class="bg-success" style="width: 100px">
+            ${addResult}
+        </div>
+      </c:if>
       File to upload: <input type="file" name="file"><br />
       <input type="submit" value="Upload"> Press here to upload the file!
     </form>

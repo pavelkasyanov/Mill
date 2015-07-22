@@ -2,13 +2,15 @@ package by.kasyanov.mvc.controllers;
 
 
 import by.kasyanov.mvc.dao.CountryDAO;
-import by.kasyanov.mvc.dao.JdbcTemplateImpl.CountryDAOImpl;
 import by.kasyanov.mvc.dao.MillDAO;
 import by.kasyanov.mvc.dao.ProducerDAO;
 import by.kasyanov.mvc.entities.Country;
 import by.kasyanov.mvc.entities.Mill;
 import by.kasyanov.mvc.entities.Producer;
 import by.kasyanov.mvc.services.MillService;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,15 +20,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/mills")
@@ -173,8 +171,7 @@ public class MillController {
     }
 
     @RequestMapping(value = "/action/add", method = RequestMethod.POST)
-    @ResponseBody
-    public String addMill(@RequestParam("file") MultipartFile file)
+    public String addMill(@RequestParam("file") MultipartFile file, ModelMap model)
     {
         if (!file.isEmpty()) {
             try {
@@ -182,10 +179,14 @@ public class MillController {
 
                 XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
 
+                millService.parseData(workbook);
+
+                model.addAttribute("addResult", "done");
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        return "file add";
+        return "addMill";
     }
 }
