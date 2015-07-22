@@ -15,10 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -163,6 +160,14 @@ public class MillController {
         model.addAttribute("countryList", countryList);
 
         return "mills";
+    }
+
+    @RequestMapping(value = "/action/delete/{id}", method = RequestMethod.GET)
+    public String deleteMill(@PathVariable("id") Integer id) {
+
+        millDAO.deleteById(id);
+
+        return "redirect:/mills";
     }
 
     @RequestMapping(value = "/action/add", method = RequestMethod.GET)
