@@ -41,21 +41,19 @@
             <input type="button" class="btn btn-primary" value="View PDF" />
           </a>
           </div>
-          <div class="col-md-2">
-            <a href="<c:url value="/mills/action/delete/${mill.id}"/>">
-              <input type="button" class="btn btn-primary" value="delete mill" />
-            </a>
-          </div>
+          <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <div class="col-md-2">
+              <a href="<c:url value="/mills/action/delete/${mill.id}"/>">
+                <input type="button" class="btn btn-primary" value="delete mill" />
+              </a>
+            </div>
+          </sec:authorize>
         </div>
       </div>
     </div>
     <div class="row">
       <div class="row">
       </div>
-      <sec:authorize access="hasRole('ROLE_ADMIN')">
-        <div class="row">
-        </div>
-      </sec:authorize>
     </div>
     <Br>
   </div>
