@@ -194,4 +194,12 @@ public class MillController {
         }
         return "addMill";
     }
+
+    @RequestMapping(value = "/compare", method = RequestMethod.GET)
+    public String compareMills(ModelMap model,
+                                @RequestParam("from") int idFrom,
+                                @RequestParam("with") int idWith) {
+
+        return "compareMils";
+    }
 }

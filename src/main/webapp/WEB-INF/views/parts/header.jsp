@@ -21,7 +21,6 @@
         <c:url value="/j_spring_security_logout" var="logoutUrl" />
         <p>Ваш логин: <sec:authentication property="principal.username" />
           <a href="${logoutUrl}" role="button">Выйти</a></p>
-        <p><a href="<c:url value="/mills/action/add"/>">Add mill</a></p>
       </sec:authorize>
     </div>
   </div>

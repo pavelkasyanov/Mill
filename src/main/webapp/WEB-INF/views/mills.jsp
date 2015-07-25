@@ -62,17 +62,39 @@
                     return true;
                 }
 
+                function showSearchForm() {
+                    $("#search_form").collapse('toggle');
+                    $("#compareForm").collapse('hide');
+                }
+
+                function showCompareForm() {
+                    $("#search_form").collapse('hide');
+                    $("#compareForm").collapse('toggle');
+                }
+
             </script>
         </div>
         <Br/>
-        <div>
+        <div class="row" id="subMenu">
+            <div class="col-md-1">
+                <input type="button" class="btn btn-default" value="search" onclick="showSearchForm();" />
+            </div>
+            <div class="col-md-1">
+                <input type="button" class="btn btn-default" value="compare" onclick="showCompareForm();" />
+            </div>
+            <sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')">
+                <div class="col-md-1">
+                    <a class="btn btn-default" href="<c:url value="/mills/action/add"/>">Add mill</a>
+                </div>
+            </sec:authorize>
+        </div><Br/>
+        <div class="row collapse" id="search_form">
             <form class="form-inline" action="<c:url value="/mills/search"/>" method="get">
                 <div class="row tabs" id="mytabs">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#tab1" data-toggle="tab" id="li_tab_1">Year</a></li>
                         <li><a href="#tab2" data-toggle="tab"id="li_tab_2">Producer</a></li>
                         <li><a href="#tab3" data-toggle="tab"id="li_tab_3">Technical specs</a></li>
-                        <li><a href="#tab4" data-toggle="tab">tab_4</a></li>
                     </ul>
                 </div>
                 <div class="tab-content">
@@ -202,11 +224,27 @@
                         </div>
                     </div>
                 </div>
-                <input type="submit" class="btn-primary" value="Search">
+                <input type="submit" class="btn btn-primary" value="Search">
             </form>
-        </div><Br/>
+        </div>
+        <div class="row collapse" id="compareForm">
+            <form class="form-inline" action="<c:url value="/mills/compare"/>" method="get">
+                <select class="form-control" name="from">
+                    <c:forEach var="mill" items="${mills}">
+                        <option value="${mill.id}">${mill.name}</option>
+                    </c:forEach>
+                </select>
+                <c:out value="with:" />
+                <select class="form-control" name="with">
+                    <c:forEach var="mill" items="${mills}">
+                        <option value="${mill.id}">${mill.name}</option>
+                    </c:forEach>
+                </select>
+                <input type="submit" class="btn btn-primary" value="compare" />
+            </form>
+        </div>
+        <Hr />
         <div class="row">
-            <%--<h2>This is mills page</h2>--%>
             <c:forEach var="mill" items="${mills}">
                 <div class="row">
                     <div class="col-md-2">

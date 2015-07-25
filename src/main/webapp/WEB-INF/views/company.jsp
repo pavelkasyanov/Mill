@@ -19,7 +19,6 @@
   </div>
   <div class="row">
     <hr>
-    Company page
       <div class="row">
         <div class="col-md-2">
             ${company.name}
@@ -31,7 +30,7 @@
             ${company.street},${company.home},${company.office}
         </div>
         <div class="col-md-2">
-            ${company.site}
+            <a href="http://${company.site}">${company.site}</a>
         </div>
       </div>
   </div>

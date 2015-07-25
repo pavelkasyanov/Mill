@@ -19,6 +19,10 @@
   </div>
   <div class="row">
     <hr>
+    <div class="row">
+      <a class="btn btn-default" href="<c:url value="/companies/add"/>">add company</a>
+    </div>
+    <Br />
     <c:forEach var="company" items="${companyList}">
       <div class="row">
         <div class="col-md-2">
@@ -31,9 +35,9 @@
           ${company.street},${company.home},${company.office}
         </div>
         <div class="col-md-2">
-          ${company.site}
+          ${company.postcode}
         </div>
-      </div>
+      </div><Br />
     </c:forEach>
   </div>
   <footer>

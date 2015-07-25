@@ -9,7 +9,7 @@
 
        <http auto-config="true" use-expressions="true" access-denied-page="/views/error403.jsp">
            <!--<intercept-url pattern="/mills/mill*" access="ROLE_ANONYMOUS" />-->
-           <intercept-url pattern="/mills/action/*" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
+           <intercept-url pattern="/mills/action/**" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
            <intercept-url pattern="/companies/**" access="isAuthenticated()" />
            <form-login
                    login-page="/login"
