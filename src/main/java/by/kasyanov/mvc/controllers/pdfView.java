@@ -5,6 +5,9 @@ import by.kasyanov.mvc.dao.MillStateDAO;
 import by.kasyanov.mvc.dao.ProducerDAO;
 import by.kasyanov.mvc.services.MillService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,11 +37,17 @@ public class pdfView {
     public ModelAndView pdfMillView(ModelMap model, @RequestParam("id") int id,
                                     HttpServletRequest request) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAuthenticated = (authentication != null &&
+                !(authentication instanceof AnonymousAuthenticationToken) &&
+                authentication.isAuthenticated());
+
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("millId", id);
         params.put("millDAO", millDAO);
         params.put("producer", millService.getProducerForMill(id));
         params.put("millState", millService.getMillState(id));
+        params.put("isAuthenticated", isAuthenticated);
 
         return new ModelAndView("millPDFBuilder", params);
     }

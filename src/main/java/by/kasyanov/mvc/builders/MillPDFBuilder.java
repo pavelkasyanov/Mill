@@ -24,7 +24,8 @@ public class MillPDFBuilder {
                       String imageUrl,
                       Mill mIll, Producer producer,
                       Country country,
-                      MillState millState) {
+                      MillState millState,
+                      boolean isAuthenticated) {
 
         try {
             ClassLoader classLoader = getClass().getClassLoader();
@@ -160,10 +161,12 @@ public class MillPDFBuilder {
             cell.setPhrase(new Phrase(String.valueOf(mIll.getPositioningRepeatability()), font));
             table.addCell(cell);
 
-            cell.setPhrase(new Phrase("Цена, $", font));
-            table.addCell(cell);
-            cell.setPhrase(new Phrase(String.valueOf(mIll.getPrice()), font));
-            table.addCell(cell);
+            if (isAuthenticated) {
+                cell.setPhrase(new Phrase("Цена, $", font));
+                table.addCell(cell);
+                cell.setPhrase(new Phrase(String.valueOf(mIll.getPrice()), font));
+                table.addCell(cell);
+            }
 
             document.add(table);
 
