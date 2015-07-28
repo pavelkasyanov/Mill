@@ -218,7 +218,7 @@ public class MillExelBuilder {
     }
 
     private void setSpindlePower() throws ParseExelException {
-        String millSpindlePower = this.getParam(12, i);
+        String millSpindlePower = this.getParam(14, i);
 
         mill.setSpindlePower(millSpindlePower);
     }

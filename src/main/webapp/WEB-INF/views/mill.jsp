@@ -40,16 +40,7 @@
       </div>
       <div class="col-md-6">
         <div class="row">
-          Type: ${millType.name}
-        </div>
-        <div class="row">
-          Model:${mill.model}
-        </div>
-        <div class="row">
-          Producer:${millProducer.name}
-        </div>
-        <div class="row">
-          Country Producing:${countryProducing.name}
+          ${mill.axisCount}-осевой ${millType.name} ${mill.model} (${millProducer.name}, ${countryProducing.name})
         </div>
         <div class="row">
           CNC: ${mill.cncType}

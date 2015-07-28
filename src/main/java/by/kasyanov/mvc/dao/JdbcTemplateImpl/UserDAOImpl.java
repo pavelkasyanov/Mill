@@ -2,7 +2,7 @@ package by.kasyanov.mvc.dao.JdbcTemplateImpl;
 
 import by.kasyanov.mvc.dao.UserDAO;
 import by.kasyanov.mvc.dao.mapper.UserMapper;
-import by.kasyanov.mvc.entities.User;
+import by.kasyanov.mvc.entities.CompanyEmployee;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import javax.sql.DataSource;
@@ -19,26 +19,26 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void insert(User user) {
-        String sql = "INSERT INTO users " +
+    public void insert(CompanyEmployee companyEmployee) {
+        String sql = "INSERT INTO company_employees " +
                 "(FIRST_NAME, SURNAME, PATRONYMIC, COMPANY_ID)" +
                 "VALUES (?, ?, ?, ?)";
-        jdbcTemplate.update(sql, new Object[]{user.getFirstName(),
-                user.getSurName(),
-                user.getPatronymic(),
-                user.getCompanyId()
+        jdbcTemplate.update(sql, new Object[]{companyEmployee.getFirstName(),
+                companyEmployee.getSurName(),
+                companyEmployee.getPatronymic(),
+                companyEmployee.getCompanyId()
         });
     }
 
     @Override
-    public User getById(int id) {
-        String query = "select * from users where ID = ?";
-        List<User> users = jdbcTemplate.query(query, new Object[]{id}, new UserMapper());
-        return users.get(0);
+    public CompanyEmployee getById(int id) {
+        String query = "select * from company_employees where ID = ?";
+        List<CompanyEmployee> companyEmployees = jdbcTemplate.query(query, new Object[]{id}, new UserMapper());
+        return companyEmployees.get(0);
     }
 
     @Override
-    public void update(User user) {
+    public void update(CompanyEmployee companyEmployee) {
 
     }
 
@@ -48,10 +48,10 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> getAll() {
-        String query = "select * from users";
-        List<User> users = jdbcTemplate.query(query, new UserMapper());
+    public List<CompanyEmployee> getAll() {
+        String query = "select * from company_employees";
+        List<CompanyEmployee> companyEmployees = jdbcTemplate.query(query, new UserMapper());
 
-        return users;
+        return companyEmployees;
     }
 }

@@ -1,17 +1,17 @@
 package by.kasyanov.mvc.entities;
 
-public class User {
+public class CompanyEmployee {
     private int id;
     private String firstName;
     private String surName;
     private String patronymic;
     private int companyId;
 
-    public User() {
+    public CompanyEmployee() {
     }
 
-    public User(int id, String firstName, String surName,
-                String patronymic, int companyId) {
+    public CompanyEmployee(int id, String firstName, String surName,
+                           String patronymic, int companyId) {
         this.id = id;
         this.firstName = firstName;
         this.surName = surName;

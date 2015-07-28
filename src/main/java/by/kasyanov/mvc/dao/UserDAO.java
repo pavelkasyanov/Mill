@@ -1,13 +1,13 @@
 package by.kasyanov.mvc.dao;
 
-import by.kasyanov.mvc.entities.User;
+import by.kasyanov.mvc.entities.CompanyEmployee;
 
 import java.util.List;
 
 public interface UserDAO {
-    void insert(User user);
-    User getById(int id);
-    void update(User user);
+    void insert(CompanyEmployee companyEmployee);
+    CompanyEmployee getById(int id);
+    void update(CompanyEmployee companyEmployee);
     void deleteById(int id);
-    List<User> getAll();
+    List<CompanyEmployee> getAll();
 }
