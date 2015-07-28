@@ -1,14 +1,9 @@
 package by.kasyanov.mvc.services;
 
 import by.kasyanov.mvc.builders.MillExelBuilder;
-import by.kasyanov.mvc.dao.CountryDAO;
-import by.kasyanov.mvc.dao.MillDAO;
-import by.kasyanov.mvc.dao.MillStateDAO;
-import by.kasyanov.mvc.dao.ProducerDAO;
-import by.kasyanov.mvc.entities.Country;
-import by.kasyanov.mvc.entities.Mill;
-import by.kasyanov.mvc.entities.MillState;
-import by.kasyanov.mvc.entities.Producer;
+import by.kasyanov.mvc.dao.*;
+import by.kasyanov.mvc.entities.*;
+import by.kasyanov.mvc.exceptions.ParseExelException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -19,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -28,12 +24,16 @@ public class MillServiceImpl implements MillService {
     MillDAO millDAO;
     @Autowired
     ProducerDAO producerDAO;
-
     @Autowired
     MillStateDAO millStateDAO;
-
     @Autowired
     CountryDAO countryDAO;
+    @Autowired
+    ImageDAO imageDAO;
+    @Autowired
+    MillTypeDAO millTypeDAO;
+    @Autowired
+    ToolShoopTypeDAO toolShoopTypeDAO;
 
     @Override
     public void insert(Mill mill) {
@@ -128,37 +128,6 @@ public class MillServiceImpl implements MillService {
     }
 
     @Override
-    public boolean addMillFromFile(MultipartFile file) {
-
-        try {
-            XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
-
-            XSSFSheet sheet = workbook.getSheetAt(0);
-            Iterator<Row> rowIterator = sheet.iterator();
-            while (rowIterator.hasNext()) {
-                Row row = rowIterator.next();
-                Iterator<Cell> cellIterator = row.cellIterator();
-
-                while (cellIterator.hasNext()) {
-
-                    Cell cell = cellIterator.next();
-                    switch (cell.getCellType()) {
-                        case Cell.CELL_TYPE_NUMERIC:
-                            break;
-                        case Cell.CELL_TYPE_STRING:
-                            break;
-                    }
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
-
-    @Override
     public MillState getMillState(int MillId) {
         return millStateDAO.getById(millDAO.getById(MillId).getMillStateId());
     }
@@ -182,7 +151,7 @@ public class MillServiceImpl implements MillService {
 
         List<Mill> result = new ArrayList<Mill>();
         for(Mill item : millList) {
-            if (item.getSizeX() >= minParam && item.getSizeX() <= maxParam) {
+            if (item.getMovingX() >= minParam && item.getMovingX() <= maxParam) {
                 result.add(item);
             }
         }
@@ -193,7 +162,7 @@ public class MillServiceImpl implements MillService {
     private List<Mill> selectByTransversalTravelY(List<Mill> millList, int minParam, int maxParam) {
         List<Mill> result = new ArrayList<Mill>();
         for(Mill item : millList) {
-            if (item.getSizeY() >= minParam && item.getSizeY() <= maxParam) {
+            if (item.getMovingY() >= minParam && item.getMovingY() <= maxParam) {
                 result.add(item);
             }
         }
@@ -204,7 +173,7 @@ public class MillServiceImpl implements MillService {
     private List<Mill> selectByTransversalTravelZ(List<Mill> millList, int minParam, int maxParam) {
         List<Mill> result = new ArrayList<Mill>();
         for(Mill item : millList) {
-            if (item.getSizeZ() >= minParam && item.getSizeZ() <= maxParam) {
+            if (item.getMovingZ() >= minParam && item.getMovingZ() <= maxParam) {
                 result.add(item);
             }
         }
@@ -247,63 +216,73 @@ public class MillServiceImpl implements MillService {
     }
 
     @Override
-    public void parseData(XSSFWorkbook workbook) {
-        Sheet sheet = workbook.getSheetAt(0);
-        Row rowTemp = sheet.getRow(0);
-        int rowCount = 13;
-        int cellCount = rowTemp.getLastCellNum();
-        Row row = null;
-        Cell cell = null;
-        for(int i = 0; i < cellCount; i++) {
+    public String addMillFromFile(MultipartFile file) {
+
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
             MillExelBuilder millExelBuilder = new MillExelBuilder();
 
-            Mill mill = millExelBuilder.build(sheet, i);
+            Sheet sheet = workbook.getSheetAt(0);
+            Mill mill = millExelBuilder.build(sheet, 1);
 
-            String state = millExelBuilder.getParam(15, i);
-            MillState millState = millStateDAO.getByName(state);
-            mill.setMillStateId(millState.getId());
+            String millTypeStr = millExelBuilder.getParam(1, 1);
+            MillType millType = millTypeDAO.getByName(millTypeStr);
+            mill.setMillType(millType.getId());
 
-            String millCountry = millExelBuilder.getParam(2, i);
-            Country country = countryDAO.getByName(millCountry);
-            mill.setCountryProducingId(country.getId());
-
-            String producerStr = millExelBuilder.getParam(1, i);
+            String producerStr = millExelBuilder.getParam(3, 1);
             Producer producer = producerDAO.getByName(producerStr);
             mill.setProducerId(producer.getId());
 
+            String countryProducingStr = millExelBuilder.getParam(4, 1);
+            Country countryProducing = countryDAO.getByName(countryProducingStr);
+            mill.setCountryProducingId(countryProducing.getId());
 
-            mill.setDescription("descroption");
-            mill.setSpindleCooling("123");
+            String machineLocationStr = millExelBuilder.getParam(7, 1);
+            Country machineLocation = countryDAO.getByName(machineLocationStr);
+            mill.setMachineLocation(machineLocation.getId());
 
-            millDAO.insert(mill);
+            String toolShoopTypeStr = millExelBuilder.getParam(18, 1);
+            ToolShoopType toolShoopType = toolShoopTypeDAO.getByName(toolShoopTypeStr);
+            mill.setToolShoopType(toolShoopType.getId());
 
-            String millOptions = this.getParam(sheet, 13, i);
-            System.out.println("mill Options:" + millOptions);
+            String millStateStr = millExelBuilder.getParam(28, 1);
+            MillState millState = millStateDAO.getByName(millStateStr);
+            mill.setMillStateId(millState.getId());
+
+            int millId = millDAO.insert(mill);
+
+            String millImages = millExelBuilder.getParam(30, 1);
+            String[] imagesStr = millImages.split("\n");
+            for(String imgSrc:imagesStr) {
+                Image image = new Image();
+                image.setMillId(millId);
+                image.setSrc(imgSrc);
+
+                imageDAO.insert(image);
+            }
+
+            String str = "123";
+            return "Machine successfully added";
+
+        }catch (ParseExelException ex) {
+            return "error adding: " + ex.getMessage();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return "unknown error adding:" + e.getMessage();
         }
     }
 
-    private String getParam(Sheet sheet, int i, int j){
-        Row row = sheet.getRow(i);
-        Cell cell = row.getCell(j);
+    @Override
+    public Map<Integer, Image> getMillsImages() {
+        Map<Integer, Image> imageMap = new ConcurrentHashMap<Integer, Image>();
 
-        if (cell != null) {
-            String str = cell.toString();
-            str = str.trim();
-
-            return str;
+        List<Mill> mills = this.getAll();
+        for(Mill mill : mills) {
+            Image image = imageDAO.getImagesFromMill(mill.getId()).get(0);
+            imageMap.put(mill.getId(), image);
         }
 
-        return null;
-    }
-
-    private List<Integer> parseIntParams(String params, String separator) {
-        List<Integer> result = new ArrayList<Integer>();
-
-        for (String str : params.split(separator)) {
-            int temp = Integer.valueOf(str);
-            result.add(temp);
-        }
-
-        return result;
+        return imageMap;
     }
 }

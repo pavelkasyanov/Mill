@@ -10,4 +10,6 @@ public interface ImageDAO {
     void update(Image image);
     void deleteById(int id);
     List<Image> getAll();
+
+    List<Image> getImagesFromMill(int millId);
 }

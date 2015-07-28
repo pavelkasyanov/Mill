@@ -5,7 +5,7 @@ import by.kasyanov.mvc.entities.Mill;
 import java.util.List;
 
 public interface MillDAO {
-    void insert(Mill mill);
+    int insert(Mill mill);
     Mill getById(int id);
     void update(Mill mill);
     void deleteById(int id);

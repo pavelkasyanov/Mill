@@ -28,7 +28,7 @@ public class MillPDFView extends AbstractITextPdfView {
         MillState millState = (MillState) model.get("millState");
         Boolean isAuthenticated = (Boolean) model.get("isAuthenticated");
 
-        String imagePath = this.getServletContext().getResource("/resources/jpg/mills/" + mill.getImage()).toString();
+        String imagePath = this.getServletContext().getResource("/resources/jpg/mills/123.jpg" + mill.toString()).toString();
 
         new MillPDFBuilder().build(document, imagePath, mill, producer, null, millState, isAuthenticated);
     }

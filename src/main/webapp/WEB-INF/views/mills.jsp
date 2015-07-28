@@ -231,13 +231,13 @@
             <form class="form-inline" action="<c:url value="/mills/compare"/>" method="get">
                 <select class="form-control" name="from">
                     <c:forEach var="mill" items="${mills}">
-                        <option value="${mill.id}">${mill.name}</option>
+                        <option value="${mill.id}">${mill.model}</option>
                     </c:forEach>
                 </select>
                 <c:out value="with:" />
                 <select class="form-control" name="with">
                     <c:forEach var="mill" items="${mills}">
-                        <option value="${mill.id}">${mill.name}</option>
+                        <option value="${mill.id}">${mill.model}</option>
                     </c:forEach>
                 </select>
                 <input type="submit" class="btn btn-primary" value="compare" />
@@ -248,11 +248,12 @@
             <c:forEach var="mill" items="${mills}">
                 <div class="row">
                     <div class="col-md-2">
-                        <img src="${pageContext.request.contextPath}/resources/jpg/mills/${mill.image}" width="100" height="100">
+                        <img src="${pageContext.request.contextPath}/resources/jpg/mills/${imageMap[mill.id].src}"
+                             width="100" height="100">
                     </div>
                     <div class="col-md-3">
                         <div class="row">
-                            <a href="${pageContext.request.contextPath}/mills/mill?id=${mill.id}">${mill.name}</a>
+                            <a href="${pageContext.request.contextPath}/mills/mill?id=${mill.id}">${mill.model}</a>
                         </div>
                         <div class="row">
                             Producer:${producersList[mill.producerId-1].name}
@@ -263,10 +264,10 @@
                     </div>
                     <div class="col-md-2">
                         <div class="row">
-                            Longitudinal travel X: ${mill.sizeX}
+                            Longitudinal travel X: ${mill.movingX}
                         </div>
                         <div class="row">
-                            Vertical travel Z: ${mill.sizeZ}
+                            Vertical travel Z: ${mill.movingZ}
                         </div>
                         <div class="row">
                             Table length: ${mill.tableLength}
@@ -274,7 +275,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="row">
-                            Transversal travel Y: ${mill.sizeY}
+                            Transversal travel Y: ${mill.movingY}
                         </div>
                         <div class="row">
                             CNC: ${mill.cncType}

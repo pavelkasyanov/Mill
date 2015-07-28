@@ -13,7 +13,7 @@
     <hr>
     <form action="<c:url value="/mills/action/add"/>" method="post" enctype="multipart/form-data">
       <c:if test="${not empty addResult}">
-        <div class="bg-success" style="width: 100px">
+        <div class="bg-success">
             ${addResult}
         </div>
       </c:if>

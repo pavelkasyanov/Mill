@@ -40,7 +40,7 @@ public class MillPDFBuilder {
             document.add(image);
             //document.add(new Paragraph(imageUrl, font));
 
-            document.add(new Paragraph(mIll.getDescription(), font));
+            //document.add(new Paragraph(mIll.getDescription(), font));
 
             PdfPTable table = new PdfPTable(2);
             table.setWidthPercentage(100.0f);
@@ -58,22 +58,22 @@ public class MillPDFBuilder {
 
             cell.setPhrase(new Phrase("Модель", font));
             table.addCell(cell);
-            cell.setPhrase(new Phrase(mIll.getName(), font));
+            cell.setPhrase(new Phrase(mIll.getModel(), font));
             table.addCell(cell);
 
             cell.setPhrase(new Phrase("Ход по X, мм", font));
             table.addCell(cell);
-            cell.setPhrase(new Phrase(String.valueOf(mIll.getSizeX()), font));
+            cell.setPhrase(new Phrase(String.valueOf(mIll.getMovingX()), font));
             table.addCell(cell);
 
             cell.setPhrase(new Phrase("Ход по Y, мм", font));
             table.addCell(cell);
-            cell.setPhrase(new Phrase(String.valueOf(mIll.getSizeY()), font));
+            cell.setPhrase(new Phrase(String.valueOf(mIll.getMovingY()), font));
             table.addCell(cell);
 
             cell.setPhrase(new Phrase("Ход по Z, мм", font));
             table.addCell(cell);
-            cell.setPhrase(new Phrase(String.valueOf(mIll.getSizeZ()), font));
+            cell.setPhrase(new Phrase(String.valueOf(mIll.getMovingZ()), font));
             table.addCell(cell);
 
             cell.setPhrase(new Phrase("CNC", font));
@@ -83,7 +83,7 @@ public class MillPDFBuilder {
 
             cell.setPhrase(new Phrase("Количество осей", font));
             table.addCell(cell);
-            cell.setPhrase(new Phrase(String.valueOf(mIll.getAxis()), font));
+            cell.setPhrase(new Phrase(String.valueOf(mIll.getAxisCount()), font));
             table.addCell(cell);
 
             cell.setPhrase(new Phrase("Длина стола, мм", font));

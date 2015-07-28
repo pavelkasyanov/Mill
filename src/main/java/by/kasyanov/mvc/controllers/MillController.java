@@ -1,17 +1,9 @@
 package by.kasyanov.mvc.controllers;
 
 
-import by.kasyanov.mvc.dao.CountryDAO;
-import by.kasyanov.mvc.dao.MillDAO;
-import by.kasyanov.mvc.dao.ProducerDAO;
-import by.kasyanov.mvc.entities.Country;
-import by.kasyanov.mvc.entities.Mill;
-import by.kasyanov.mvc.entities.Producer;
+import by.kasyanov.mvc.dao.*;
+import by.kasyanov.mvc.entities.*;
 import by.kasyanov.mvc.services.MillService;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -19,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/mills")
@@ -29,15 +21,18 @@ public class MillController {
 
     @Autowired
     MillService millService;
-
     @Autowired
     ProducerDAO producerDAO;
-
     @Autowired
     CountryDAO countryDAO;
-
     @Autowired
     MillDAO millDAO;
+    @Autowired
+    ImageDAO imageDAO;
+    @Autowired
+    MillTypeDAO millTypeDAO;
+    @Autowired
+    ToolShoopTypeDAO toolShoopTypeDAO;
 
     @RequestMapping(method = RequestMethod.GET)
     public String index(ModelMap model) {
@@ -53,6 +48,9 @@ public class MillController {
         Collections.sort(countryList);
         model.addAttribute("countryList", countryList);
 
+        Map<Integer, Image> imageMap = millService.getMillsImages();
+        model.addAttribute("imageMap", imageMap);
+
         return "mills";
     }
 
@@ -61,10 +59,29 @@ public class MillController {
                           HttpServletRequest request) {
 
         Mill mill = millService.getById(id);
-        Producer producer = millService.getProducerForMill(mill.getId());
-
         model.addAttribute("mill", mill);
+
+
+        Producer producer = millService.getProducerForMill(mill.getId());
         model.addAttribute("millProducer", producer);
+
+        List<Image> images = imageDAO.getImagesFromMill(mill.getId());
+        model.addAttribute("millImages", images);
+
+        MillType millType = millTypeDAO.getById(mill.getMillType());
+        model.addAttribute("millType", millType);
+
+        Country countryProducing = countryDAO.getById(mill.getCountryProducingId());
+        model.addAttribute("countryProducing", countryProducing);
+
+        Country countryMachineLocation = countryDAO.getById(mill.getMachineLocation());
+        model.addAttribute("countryMachineLocation", countryMachineLocation);
+
+        ToolShoopType toolShoopType = toolShoopTypeDAO.getById(mill.getToolShoopType());
+        model.addAttribute("toolShoopType", toolShoopType);
+
+        MillState millState = millService.getMillState(mill.getId());
+        model.addAttribute("millState", millState);
 
         return "mill";
     }
@@ -176,22 +193,16 @@ public class MillController {
     }
 
     @RequestMapping(value = "/action/add", method = RequestMethod.POST)
-    public String addMill(@RequestParam("file") MultipartFile file, ModelMap model)
+    public String addMillFromFile(ModelMap model,
+                          @RequestParam("file") MultipartFile file)
     {
         if (!file.isEmpty()) {
-            try {
-                byte[] bytes = file.getBytes();
-
-                XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
-
-                millService.parseData(workbook);
-
-                model.addAttribute("addResult", "done");
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            String result = millService.addMillFromFile(file);
+            model.addAttribute("addResult", result);
+        } else {
+          model.addAttribute("addResult", "file is empty");
         }
+
         return "addMill";
     }
 

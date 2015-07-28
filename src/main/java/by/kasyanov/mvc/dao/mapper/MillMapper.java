@@ -9,41 +9,44 @@ import java.sql.SQLException;
 public class MillMapper implements RowMapper<Mill> {
 
     @Override
-    public Mill mapRow(ResultSet resultSet, int i) throws SQLException {
+    public Mill mapRow(ResultSet rs, int i) throws SQLException {
         Mill mill = new Mill();
-        mill.setId(resultSet.getInt("ID"));
-        mill.setName(resultSet.getString("NAME"));
-        mill.setProducerId(resultSet.getInt("PRODUCER_ID"));
-        mill.setYear(resultSet.getInt("YEAR"));
-        mill.setCncType(resultSet.getString("CNC_TYPE"));
-        mill.setAxis(resultSet.getInt("AXIS"));
-        mill.setMillStateId(resultSet.getInt("MILL_STATE_ID"));
-        mill.setPrice(resultSet.getInt("PRICE"));
-        mill.setImage(resultSet.getString("IMAGE"));
-        mill.setSpecialOffer(resultSet.getBoolean("SPECIAL_OFFER"));
-        mill.setDescription(resultSet.getString("DESCRIPTION"));
-        mill.setCountryProducingId(resultSet.getInt("COUNTRY_PRODUCING_ID"));
-        mill.setSizeX(resultSet.getInt("SIZE_X"));
-        mill.setSizeY(resultSet.getInt("SIZE_Y"));
-        mill.setSizeZ(resultSet.getInt("SIZE_Z"));
-        mill.setSpeedUpX(resultSet.getFloat("SPEED_UP_X"));
-        mill.setSpeedUpY(resultSet.getFloat("SPEED_UP_Y"));
-        mill.setSpeedUpZ(resultSet.getFloat("SPEED_UP_Z"));
-        mill.setSpindleSpeedMax(resultSet.getInt("SPINDLE_SPEED_MAX"));
-        mill.setSpindleTaper(resultSet.getString("SPINDLE_TAPER"));
-        mill.setSpindlePower(resultSet.getFloat("SPINDLE_POWER"));
-        mill.setSpindleTorqueMax(resultSet.getInt("SPINDLE_TORQUE_MAX"));
-        mill.setSpindleCooling(resultSet.getString("SPINDLE_COOLING"));
-        mill.setSpindleWorkTime(resultSet.getInt("SPINDLE_WORK_TIME"));
-        mill.setTableLength(resultSet.getInt("TABLE_LENGTH"));
-        mill.setTableWidth(resultSet.getInt("TABLE_WIDTH"));
-        mill.setTableWeightMax(resultSet.getInt("TABLE_WEIGHT_MAX"));
-        mill.setToolShoopNumber(resultSet.getInt("TOOL_SHOOP_NUMBER"));
-        mill.setToolShoopMaxD(resultSet.getInt("TOOL_SHOOP_MAX_D"));
-        mill.setToolShoopWeightMax(resultSet.getInt("TOOL_SHOOP_WEIGHT_MAX"));
-        mill.setToolShoopChangeTime(resultSet.getFloat("TOOL_SHOOP_CHANGE_TIME"));
-        mill.setPositioningAccuracy(resultSet.getFloat("POSITIONING_ACCURACY"));
-        mill.setPositioningRepeatability(resultSet.getFloat("POSITIONING_REPEATABILITY"));
+        mill.setId(rs.getInt("id"));
+        mill.setProductId(rs.getString("product_id"));
+        mill.setMillType(rs.getInt("mill_type"));
+        mill.setModel(rs.getString("model"));
+        mill.setProducerId(rs.getInt("producer_id"));
+        mill.setCountryProducingId(rs.getInt("country_producing_id"));
+        mill.setCncType(rs.getString("cnc_type"));
+        mill.setYear(rs.getInt("year"));
+        mill.setMachineLocation(rs.getInt("machine_location"));
+        mill.setAxisCount(rs.getInt("axis_count"));
+        mill.setMovingX(rs.getInt("moving_x"));
+        mill.setMovingY(rs.getInt("moving_y"));
+        mill.setMovingZ(rs.getInt("moving_z"));
+        mill.setTableLength(rs.getInt("table_length"));
+        mill.setTableWidth(rs.getInt("table_width"));
+        mill.setTableWeightMax(rs.getInt("table_weight_max"));
+        mill.setSpindleTaper(rs.getString("spindle_taper"));
+        mill.setSpindleSpeedMax(rs.getInt("spindle_speed_max"));
+        mill.setSpindlePower(rs.getString("spindle_power"));
+        mill.setSpindleTorqueMax(rs.getInt("spindle_torque_max"));
+        mill.setSpindleType(rs.getString("spindle_type"));
+        mill.setSpindleCooling(rs.getString("spindle_cooling"));
+        mill.setToolShoopType(rs.getInt("tool_shoop_type"));
+        mill.setToolShoopNumber(rs.getInt("tool_shoop_number"));
+        mill.setToolShoopMaxD(rs.getInt("tool_shoop_max_d"));
+        mill.setToolShoopWeightMax(rs.getInt("tool_shoop_weight_max"));
+        mill.setToolShoopChangeTime(rs.getFloat("tool_shoop_change_time"));
+        mill.setPositioningAccuracy(rs.getFloat("positioning_accuracy"));
+        mill.setPositioningRepeatability(rs.getFloat("positioning_repeatability"));
+        mill.setSpindleWorkTime(rs.getInt("spindle_work_time"));
+        mill.setWorkTime(rs.getInt("work_time"));
+        mill.setAdditionalConfiguration(rs.getString("additional_configuration"));
+        mill.setMillStateId(rs.getInt("mill_state_id"));
+        mill.setPrice(rs.getInt("price"));
+        mill.setAddedDate(rs.getDate("added_date"));
+        mill.setAddedById(rs.getInt("added_by_id"));
 
         return mill;
     }

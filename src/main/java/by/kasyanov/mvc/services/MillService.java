@@ -1,5 +1,6 @@
 package by.kasyanov.mvc.services;
 
+import by.kasyanov.mvc.entities.Image;
 import by.kasyanov.mvc.entities.Mill;
 import by.kasyanov.mvc.entities.MillState;
 import by.kasyanov.mvc.entities.Producer;
@@ -7,6 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 public interface MillService {
     void insert(Mill mill);
@@ -30,9 +32,9 @@ public interface MillService {
                       int minTableWidth,
                       int maxTableWidth);
 
-    boolean addMillFromFile(MultipartFile file);
+    String addMillFromFile(MultipartFile file);
 
     MillState getMillState(int MillId);
 
-    void parseData(XSSFWorkbook workbook);
+    Map<Integer, Image> getMillsImages();
 }
