@@ -10,6 +10,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -34,6 +36,8 @@ public class MillServiceImpl implements MillService {
     MillTypeDAO millTypeDAO;
     @Autowired
     ToolShoopTypeDAO toolShoopTypeDAO;
+    @Autowired
+    UserDAO userDAO;
 
     @Override
     public void insert(Mill mill) {
@@ -249,6 +253,11 @@ public class MillServiceImpl implements MillService {
             MillState millState = millStateDAO.getByName(millStateStr);
             mill.setMillStateId(millState.getId());
 
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String userName = authentication.getName();
+            User user = userDAO.getByName(userName);
+            mill.setAddedById(user.getId());
+
             int millId = millDAO.insert(mill);
 
             String millImages = millExelBuilder.getParam(30, 1);
@@ -269,7 +278,7 @@ public class MillServiceImpl implements MillService {
         }
         catch (Exception e) {
             e.printStackTrace();
-            return "unknown error adding:" + e.getMessage();
+            return "unknown error adding";
         }
     }
 
