@@ -37,10 +37,18 @@
     <bean id="skypeDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.SkypeDAOImpl">
         <property name="dataSource" ref="dataSource" />
     </bean>
+    <bean id="companyEmployeeDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.CompanyEmployeeDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="millTypeDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.MillTypeDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean id="toolShoopType" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.ToolShoopTypeDAOImpl">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
     <bean id="userDAO" class="by.kasyanov.mvc.dao.JdbcTemplateImpl.UserDAOImpl">
         <property name="dataSource" ref="dataSource" />
     </bean>
-
 
     <bean id="millService" class="by.kasyanov.mvc.services.MillServiceImpl" />
 

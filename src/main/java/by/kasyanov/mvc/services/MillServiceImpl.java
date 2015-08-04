@@ -1,24 +1,24 @@
 package by.kasyanov.mvc.services;
 
+import by.kasyanov.mvc.Models.MillModel;
 import by.kasyanov.mvc.builders.MillExelBuilder;
-import by.kasyanov.mvc.dao.CountryDAO;
-import by.kasyanov.mvc.dao.MillDAO;
-import by.kasyanov.mvc.dao.MillStateDAO;
-import by.kasyanov.mvc.dao.ProducerDAO;
-import by.kasyanov.mvc.entities.Country;
-import by.kasyanov.mvc.entities.Mill;
-import by.kasyanov.mvc.entities.MillState;
-import by.kasyanov.mvc.entities.Producer;
+import by.kasyanov.mvc.dao.*;
+import by.kasyanov.mvc.entities.*;
+import by.kasyanov.mvc.exceptions.ModelMappingExeption;
+import by.kasyanov.mvc.exceptions.ParseExelException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -28,12 +28,18 @@ public class MillServiceImpl implements MillService {
     MillDAO millDAO;
     @Autowired
     ProducerDAO producerDAO;
-
     @Autowired
     MillStateDAO millStateDAO;
-
     @Autowired
     CountryDAO countryDAO;
+    @Autowired
+    ImageDAO imageDAO;
+    @Autowired
+    MillTypeDAO millTypeDAO;
+    @Autowired
+    ToolShoopTypeDAO toolShoopTypeDAO;
+    @Autowired
+    UserDAO userDAO;
 
     @Override
     public void insert(Mill mill) {
@@ -128,37 +134,6 @@ public class MillServiceImpl implements MillService {
     }
 
     @Override
-    public boolean addMillFromFile(MultipartFile file) {
-
-        try {
-            XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
-
-            XSSFSheet sheet = workbook.getSheetAt(0);
-            Iterator<Row> rowIterator = sheet.iterator();
-            while (rowIterator.hasNext()) {
-                Row row = rowIterator.next();
-                Iterator<Cell> cellIterator = row.cellIterator();
-
-                while (cellIterator.hasNext()) {
-
-                    Cell cell = cellIterator.next();
-                    switch (cell.getCellType()) {
-                        case Cell.CELL_TYPE_NUMERIC:
-                            break;
-                        case Cell.CELL_TYPE_STRING:
-                            break;
-                    }
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return false;
-    }
-
-    @Override
     public MillState getMillState(int MillId) {
         return millStateDAO.getById(millDAO.getById(MillId).getMillStateId());
     }
@@ -182,7 +157,7 @@ public class MillServiceImpl implements MillService {
 
         List<Mill> result = new ArrayList<Mill>();
         for(Mill item : millList) {
-            if (item.getSizeX() >= minParam && item.getSizeX() <= maxParam) {
+            if (item.getMovingX() >= minParam && item.getMovingX() <= maxParam) {
                 result.add(item);
             }
         }
@@ -193,7 +168,7 @@ public class MillServiceImpl implements MillService {
     private List<Mill> selectByTransversalTravelY(List<Mill> millList, int minParam, int maxParam) {
         List<Mill> result = new ArrayList<Mill>();
         for(Mill item : millList) {
-            if (item.getSizeY() >= minParam && item.getSizeY() <= maxParam) {
+            if (item.getMovingY() >= minParam && item.getMovingY() <= maxParam) {
                 result.add(item);
             }
         }
@@ -204,7 +179,7 @@ public class MillServiceImpl implements MillService {
     private List<Mill> selectByTransversalTravelZ(List<Mill> millList, int minParam, int maxParam) {
         List<Mill> result = new ArrayList<Mill>();
         for(Mill item : millList) {
-            if (item.getSizeZ() >= minParam && item.getSizeZ() <= maxParam) {
+            if (item.getMovingZ() >= minParam && item.getMovingZ() <= maxParam) {
                 result.add(item);
             }
         }
@@ -247,63 +222,166 @@ public class MillServiceImpl implements MillService {
     }
 
     @Override
-    public void parseData(XSSFWorkbook workbook) {
-        Sheet sheet = workbook.getSheetAt(0);
-        Row rowTemp = sheet.getRow(0);
-        int rowCount = 13;
-        int cellCount = rowTemp.getLastCellNum();
-        Row row = null;
-        Cell cell = null;
-        for(int i = 0; i < cellCount; i++) {
+    public String addMillFromFile(MultipartFile file) {
+
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook(file.getInputStream());
             MillExelBuilder millExelBuilder = new MillExelBuilder();
 
-            Mill mill = millExelBuilder.build(sheet, i);
+            Sheet sheet = workbook.getSheetAt(0);
+            Mill mill = millExelBuilder.build(sheet, 1);
 
-            String state = millExelBuilder.getParam(15, i);
-            MillState millState = millStateDAO.getByName(state);
-            mill.setMillStateId(millState.getId());
+            String millTypeStr = millExelBuilder.getParam(1, 1);
+            MillType millType = millTypeDAO.getByName(millTypeStr);
+            mill.setMillType(millType.getId());
 
-            String millCountry = millExelBuilder.getParam(2, i);
-            Country country = countryDAO.getByName(millCountry);
-            mill.setCountryProducingId(country.getId());
-
-            String producerStr = millExelBuilder.getParam(1, i);
+            String producerStr = millExelBuilder.getParam(3, 1);
             Producer producer = producerDAO.getByName(producerStr);
             mill.setProducerId(producer.getId());
 
+            String countryProducingStr = millExelBuilder.getParam(4, 1);
+            Country countryProducing = countryDAO.getByName(countryProducingStr);
+            mill.setCountryProducingId(countryProducing.getId());
 
-            mill.setDescription("descroption");
-            mill.setSpindleCooling("123");
+            String machineLocationStr = millExelBuilder.getParam(7, 1);
+            Country machineLocation = countryDAO.getByName(machineLocationStr);
+            mill.setMachineLocation(machineLocation.getId());
 
-            millDAO.insert(mill);
+            String toolShoopTypeStr = millExelBuilder.getParam(18, 1);
+            ToolShoopType toolShoopType = toolShoopTypeDAO.getByName(toolShoopTypeStr);
+            mill.setToolShoopType(toolShoopType.getId());
 
-            String millOptions = this.getParam(sheet, 13, i);
-            System.out.println("mill Options:" + millOptions);
+            String millStateStr = millExelBuilder.getParam(28, 1);
+            MillState millState = millStateDAO.getByName(millStateStr);
+            mill.setMillStateId(millState.getId());
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String userName = authentication.getName();
+            User user = userDAO.getByName(userName);
+            mill.setAddedById(user.getId());
+
+            int millId = millDAO.insert(mill);
+
+            String millImages = millExelBuilder.getParam(30, 1);
+            String[] imagesStr = millImages.split("\n");
+            for(String imgSrc:imagesStr) {
+                Image image = new Image();
+                image.setMillId(millId);
+                image.setSrc(imgSrc);
+
+                imageDAO.insert(image);
+            }
+
+            String str = "123";
+            return "Machine successfully added";
+
+        }catch (ParseExelException ex) {
+            return "error adding: " + ex.getMessage();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return "unknown error adding";
         }
     }
 
-    private String getParam(Sheet sheet, int i, int j){
-        Row row = sheet.getRow(i);
-        Cell cell = row.getCell(j);
+    @Override
+    public Map<Integer, Image> getMillsImages() {
+        Map<Integer, Image> imageMap = new ConcurrentHashMap<Integer, Image>();
 
-        if (cell != null) {
-            String str = cell.toString();
-            str = str.trim();
-
-            return str;
+        List<Mill> mills = this.getAll();
+        for(Mill mill : mills) {
+            Image image = imageDAO.getImagesFromMill(mill.getId()).get(0);
+            imageMap.put(mill.getId(), image);
         }
 
-        return null;
+        return imageMap;
     }
 
-    private List<Integer> parseIntParams(String params, String separator) {
-        List<Integer> result = new ArrayList<Integer>();
-
-        for (String str : params.split(separator)) {
-            int temp = Integer.valueOf(str);
-            result.add(temp);
+    @Override
+    public MillModel getMillModelById(int millId) throws ModelMappingExeption {
+        Mill mill = millDAO.getById(millId);
+        if (mill == null) {
+            throw new ModelMappingExeption("mill(id=" + millId + ") not found");
         }
 
-        return result;
+        MillType millType = millTypeDAO.getById(mill.getMillType());
+        if (millType == null){
+            throw new ModelMappingExeption("millType(id=" + mill.getMillType() + ") not found");
+        }
+
+        MillState millState = millStateDAO.getById(mill.getMillStateId());
+        if (millState == null) {
+            throw new ModelMappingExeption("millState(id=" + mill.getMillStateId() + ") not found");
+        }
+
+        Producer producer = producerDAO.getById(mill.getProducerId());
+        if (producer == null) {
+            throw new ModelMappingExeption("producer(id=" + mill.getProducerId() + ") not found");
+        }
+
+        Country countryProducing = countryDAO.getById(mill.getCountryProducingId());
+        if (countryProducing == null) {
+            throw new ModelMappingExeption("countryProducing(id=" + mill.getCountryProducingId() + ") not found");
+        }
+
+        Country machineLocation = countryDAO.getById(mill.getMachineLocation());
+        if (machineLocation == null) {
+            throw new ModelMappingExeption("machineLocation(id=" + mill.getMachineLocation() + ") not found");
+        }
+
+        ToolShoopType toolShoopType = toolShoopTypeDAO.getById(mill.getToolShoopType());
+        if (toolShoopType == null) {
+            throw new ModelMappingExeption("toolShoopType(id=" + mill.getToolShoopType() + ") not found");
+        }
+        List<Image> imageList = imageDAO.getImagesFromMill(millId);
+        if (imageList == null) {
+            throw new ModelMappingExeption("images from mill(id=" + mill.getToolShoopType() + ") not found");
+        }
+
+        MillModel model = new MillModel();
+
+        model.setId(mill.getId());
+        model.setProductId(mill.getProductId());
+        model.setMillType(millType);
+        model.setModel(mill.getModel());
+        model.setProducer(producer);
+        model.setCountryProducing(countryProducing);
+        model.setCncType(mill.getCncType());
+        model.setYear(mill.getYear());
+
+        model.setMachineLocation(machineLocation);
+        model.setAxisCount(mill.getAxisCount());
+        model.setMovingX(mill.getMovingX());
+        model.setMovingY(mill.getMovingY());
+        model.setMovingZ(mill.getMovingZ());
+        model.setTableLength(mill.getTableLength());
+        model.setTableWidth(mill.getTableWidth());
+        model.setTableWeightMax(mill.getToolShoopWeightMax());
+        model.setSpindleTaper(mill.getSpindleTaper());
+        model.setSpindleSpeedMax(mill.getSpindleSpeedMax());
+        model.setSpindlePower(mill.getSpindlePower());
+        model.setSpindleTorqueMax(mill.getSpindleTorqueMax());
+        model.setSpindleType(mill.getSpindleType());
+        model.setSpindleCooling(mill.getSpindleCooling());
+
+        model.setToolShoopType(toolShoopType);
+        model.setToolShoopNumber(mill.getToolShoopNumber());
+        model.setToolShoopMaxD(mill.getToolShoopMaxD());
+        model.setToolShoopWeightMax(mill.getToolShoopWeightMax());
+        model.setToolShoopChangeTime(mill.getToolShoopChangeTime());
+        model.setPositioningAccuracy(mill.getPositioningAccuracy());
+        model.setPositioningRepeatability(mill.getPositioningRepeatability());
+        model.setSpindleWorkTime(mill.getSpindleWorkTime());
+        model.setWorkTime(mill.getWorkTime());
+        model.setAdditionalConfiguration(mill.getAdditionalConfiguration());
+
+        model.setMillState(millState);
+        model.setPrice(mill.getPrice());
+        model.setAddedDate(mill.getAddedDate());
+        model.setAddedById(mill.getAddedById());
+
+        model.setImages(imageList);
+
+        return model;
     }
 }

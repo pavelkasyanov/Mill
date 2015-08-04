@@ -52,4 +52,11 @@ public class ImageDAOImpl implements ImageDAO {
 
         return images;
     }
+
+    @Override
+    public List<Image> getImagesFromMill(int millId) {
+        String query = "select * from images where mill_id = ?";
+        List<Image> images = jdbcTemplate.query(query, new Object[]{millId}, new ImageMapper());
+        return images;
+    }
 }

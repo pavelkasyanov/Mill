@@ -21,7 +21,6 @@
         <c:url value="/j_spring_security_logout" var="logoutUrl" />
         <p>Ваш логин: <sec:authentication property="principal.username" />
           <a href="${logoutUrl}" role="button">Выйти</a></p>
-        <p><a href="<c:url value="/mills/action/add"/>">Add mill</a></p>
       </sec:authorize>
     </div>
   </div>
@@ -30,6 +29,9 @@
   <div class="nav nav-pills"><%--pull-right--%>
     <li role="presentation" id="menu_item_index"><a href="<c:url value="/" />">Home</a></li>
     <li role="presentation" id="menu_item_mills"><a href="<c:url value="/mills" />">Mills</a></li>
+    <sec:authorize access="isAuthenticated()">
+      <li role="presentation" id="menu_item_companies"><a href="<c:url value="/companies" />">Companies</a></li>
+    </sec:authorize>
     <li role="presentation" id="menu_item_contacts"><a href="<c:url value="/" />">Contacts</a></li>
     <li role="presentation" id="menu_item_about"><a href="<c:url value="/about" />">About</a></li>
   </div>

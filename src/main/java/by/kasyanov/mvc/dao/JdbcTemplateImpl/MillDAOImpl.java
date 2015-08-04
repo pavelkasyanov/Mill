@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
@@ -26,26 +28,30 @@ public class MillDAOImpl implements MillDAO {
     }
 
     @Override
-    public void insert(Mill mill) {
-        String sql = "INSERT INTO mill " +
-                "(NAME, PRODUCER_ID, YEAR, CNC_TYPE, AXIS, MILL_STATE_ID, PRICE, IMAGE, SPECIAL_OFFER, DESCRIPTION, " +
-                "COUNTRY_PRODUCING_ID, SIZE_X, SIZE_Y, SIZE_Z, SPEED_UP_X, SPEED_UP_Y, SPEED_UP_Z, SPINDLE_SPEED_MAX," +
-                "SPINDLE_TAPER, SPINDLE_POWER, SPINDLE_TORQUE_MAX, SPINDLE_COOLING, SPINDLE_WORK_TIME, TABLE_LENGTH," +
-                "TABLE_WIDTH, TABLE_WEIGHT_MAX, TOOL_SHOOP_NUMBER, TOOL_SHOOP_MAX_D, TOOL_SHOOP_WEIGHT_MAX," +
-                "TOOL_SHOOP_CHANGE_TIME, POSITIONING_ACCURACY, POSITIONING_REPEATABILITY)" +
-                "VALUES (:name, :producerId, :year, :cncType, :axis, :millStateId, :price, :image, :specialOffer," +
-                ":description, :countryProducingId, :sizeX, :sizeY, :sizeZ, :speedUpX, :speedUpY, :speedUpZ,"+
-                ":spindleSpeedMax, :spindleTaper, :spindlePower, :spindleTorqueMax, :spindleCooling, :spindleWorkTime," +
-                ":tableLength, :tableWidth, :tableWeightMax, :ToolShoopNumber, :ToolShoopMaxD, :ToolShoopWeightMax," +
-                ":ToolShoopChangeTime, :positioningAccuracy, :positioningRepeatability)";
+    public int insert(Mill mill) {
+        String sql = "INSERT INTO mills " +
+                "(product_id, mill_type, model, producer_id, country_producing_id, cnc_type, year, machine_location, axis_count, " +
+                "moving_x, moving_y, moving_z, table_length, table_width, table_weight_max, spindle_taper, spindle_speed_max," +
+                "spindle_power, spindle_torque_max, spindle_type, spindle_cooling, tool_shoop_type, tool_shoop_number," +
+                "tool_shoop_max_d, tool_shoop_weight_max, tool_shoop_change_time, positioning_accuracy, positioning_repeatability," +
+                "spindle_work_time, work_time, additional_configuration, mill_state_id, price, added_by_id)" +
+                "VALUES (:productId, :millType, :model, :producerId, :countryProducingId, :cncType, :year, :machineLocation, :axisCount," +
+                ":movingX, :movingY, :movingZ, :tableLength, :tableWidth, :tableWeightMax, :spindleTaper, :spindleSpeedMax,"+
+                ":spindlePower, :spindleTorqueMax, :spindleType, :spindleCooling, :toolShoopType, :toolShoopNumber," +
+                ":toolShoopMaxD, :toolShoopWeightMax, :toolShoopChangeTime, :positioningAccuracy, :positioningRepeatability, :spindleWorkTime," +
+                ":workTime, :additionalConfiguration, :millStateId, :price, :addedById)";
 
         BeanPropertySqlParameterSource parameterSource= new BeanPropertySqlParameterSource(mill);
-        jdbcTemplate.update(sql, parameterSource);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        jdbcTemplate.update(sql, parameterSource, keyHolder);
+
+        return keyHolder.getKey().intValue();
     }
 
     @Override
     public Mill getById(int id) {
-        String query = "select * from mill where ID=:id";
+        String query = "select * from mills where ID=:id";
         SqlParameterSource namedParameters = new MapSqlParameterSource("id", Integer.valueOf(id));
         Mill mill = jdbcTemplate.queryForObject(query, namedParameters, new MillMapper());
         return mill;
@@ -58,14 +64,14 @@ public class MillDAOImpl implements MillDAO {
 
     @Override
     public void deleteById(int id) {
-        String query = "delete from mill where id=:id";
+        String query = "delete from mills where id=:id";
         SqlParameterSource paramSource = new MapSqlParameterSource("id", id);
         jdbcTemplate.update(query, paramSource);
     }
 
     @Override
     public List<Mill> getAll() {
-        String query = "select * from mill";
+        String query = "select * from mills";
         List<Mill> mills = jdbcTemplate.query(query, new MillMapper());
 
         return mills;
@@ -73,7 +79,7 @@ public class MillDAOImpl implements MillDAO {
 
     @Override
     public List<Mill> sortByManufactureDate(int beginManufacture, int endManufacture) {
-        String query = "select * from mill where YEAR >= :begin  AND YEAR  <= :end";
+        String query = "select * from mills where YEAR >= :begin  AND YEAR  <= :end";
         Map<String, Integer> params = new HashMap<String, Integer>();
         params.put("begin", beginManufacture);
         params.put("end", endManufacture);

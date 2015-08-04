@@ -1,63 +1,68 @@
-package by.kasyanov.mvc.entities;
+package by.kasyanov.mvc.Models;
+
+import by.kasyanov.mvc.entities.*;
 
 import java.util.Date;
+import java.util.List;
 
-public class Mill {
-    private int id;
-    private String productId;
-    private int millType;
-    private String model;
-    private int producerId;
-    private int countryProducingId;
-    private String cncType;
-    private int year;
-    private int machineLocation;
-    private int axisCount;
-    private int movingX;
-    private int movingY;
-    private int movingZ;
-    private int tableLength;
-    private int tableWidth;
-    private int tableWeightMax;
-    private String spindleTaper;
-    private int spindleSpeedMax;
-    private String spindlePower;
-    private int spindleTorqueMax;
-    private String spindleType;
-    private String spindleCooling;
-    private int toolShoopType;
-    private int toolShoopNumber;
-    private int toolShoopMaxD;
-    private int toolShoopWeightMax;
-    private float toolShoopChangeTime;
-    private float positioningAccuracy;
-    private float positioningRepeatability;
-    private int spindleWorkTime;
-    private int workTime;
-    private String additionalConfiguration;
-    private int millStateId;
-    private int price;
-    private Date addedDate;
-    private int addedById;
+public class MillModel {
+    private int         id;
+    private String      productId;
+    private MillType    millType;
+    private String      model;
+    private Producer    producer;
+    private Country     countryProducing;
+    private String      cncType;
+    private int         year;
+    private Country     machineLocation;
+    private int         axisCount;
+    private int         movingX;
+    private int         movingY;
+    private int         movingZ;
+    private int         tableLength;
+    private int         tableWidth;
+    private int         tableWeightMax;
+    private String      spindleTaper;
+    private int         spindleSpeedMax;
+    private String      spindlePower;
+    private int         spindleTorqueMax;
+    private String      spindleType;
+    private String      spindleCooling;
+    private ToolShoopType toolShoopType;
+    private int         toolShoopNumber;
+    private int         toolShoopMaxD;
+    private int         toolShoopWeightMax;
+    private float       toolShoopChangeTime;
+    private float       positioningAccuracy;
+    private float       positioningRepeatability;
+    private int         spindleWorkTime;
+    private int         workTime;
+    private String      additionalConfiguration;
+    private MillState   millState;
+    private int         price;
+    private Date        addedDate;
+    private int         addedById; //TODO change addedBy
 
-    public Mill() {
+    private List<Image> images;
+
+    public MillModel() {
     }
 
-    public Mill(int id, String productId, int millType, String model, int producerId,
-                int countryProducingId, String cncType, int year, int machineLocation,
-                int axisCount, int movingX, int movingY, int movingZ, int tableLength,
-                int tableWidth, int tableWeightMax, String spindleTaper, int spindleSpeedMax,
-                String spindlePower, int spindleTorqueMax, String spindleType, String spindleCooling,
-                int toolShoopType, int toolShoopNumber, int toolShoopMaxD, int toolShoopWeightMax,
-                float toolShoopChangeTime, float positioningAccuracy, float positioningRepeatability,
-                int spindleWorkTime, int workTime, String additionalConfiguration, int millStateId,
-                int price, Date addedDate, int addedById) {
+    public MillModel(int id, String productId, MillType millType, String model,
+                     Producer producer, Country countryProducing, String cncType,
+                     int year, Country machineLocation, int axisCount, int movingX,
+                     int movingY, int movingZ, int tableLength, int tableWidth,
+                     int tableWeightMax, String spindleTaper, int spindleSpeedMax, String spindlePower,
+                     int spindleTorqueMax, String spindleType, String spindleCooling, ToolShoopType toolShoopType,
+                     int toolShoopNumber, int toolShoopMaxD, int toolShoopWeightMax, float toolShoopChangeTime,
+                     float positioningAccuracy, float positioningRepeatability, int spindleWorkTime, int workTime,
+                     String additionalConfiguration, MillState millState, int price, Date addedDate, int addedById, List<Image> images) {
         this.id = id;
         this.productId = productId;
         this.millType = millType;
         this.model = model;
-        this.producerId = producerId;
-        this.countryProducingId = countryProducingId;
+        this.producer = producer;
+        this.countryProducing = countryProducing;
         this.cncType = cncType;
         this.year = year;
         this.machineLocation = machineLocation;
@@ -84,10 +89,11 @@ public class Mill {
         this.spindleWorkTime = spindleWorkTime;
         this.workTime = workTime;
         this.additionalConfiguration = additionalConfiguration;
-        this.millStateId = millStateId;
+        this.millState = millState;
         this.price = price;
         this.addedDate = addedDate;
         this.addedById = addedById;
+        this.images = images;
     }
 
     public int getId() {
@@ -106,11 +112,11 @@ public class Mill {
         this.productId = productId;
     }
 
-    public int getMillType() {
+    public MillType getMillType() {
         return millType;
     }
 
-    public void setMillType(int millType) {
+    public void setMillType(MillType millType) {
         this.millType = millType;
     }
 
@@ -122,20 +128,20 @@ public class Mill {
         this.model = model;
     }
 
-    public int getProducerId() {
-        return producerId;
+    public Producer getProducer() {
+        return producer;
     }
 
-    public void setProducerId(int producerId) {
-        this.producerId = producerId;
+    public void setProducer(Producer producer) {
+        this.producer = producer;
     }
 
-    public int getCountryProducingId() {
-        return countryProducingId;
+    public Country getCountryProducing() {
+        return countryProducing;
     }
 
-    public void setCountryProducingId(int countryProducingId) {
-        this.countryProducingId = countryProducingId;
+    public void setCountryProducing(Country countryProducing) {
+        this.countryProducing = countryProducing;
     }
 
     public String getCncType() {
@@ -154,11 +160,11 @@ public class Mill {
         this.year = year;
     }
 
-    public int getMachineLocation() {
+    public Country getMachineLocation() {
         return machineLocation;
     }
 
-    public void setMachineLocation(int machineLocation) {
+    public void setMachineLocation(Country machineLocation) {
         this.machineLocation = machineLocation;
     }
 
@@ -266,11 +272,11 @@ public class Mill {
         this.spindleCooling = spindleCooling;
     }
 
-    public int getToolShoopType() {
+    public ToolShoopType getToolShoopType() {
         return toolShoopType;
     }
 
-    public void setToolShoopType(int toolShoopType) {
+    public void setToolShoopType(ToolShoopType toolShoopType) {
         this.toolShoopType = toolShoopType;
     }
 
@@ -346,12 +352,12 @@ public class Mill {
         this.additionalConfiguration = additionalConfiguration;
     }
 
-    public int getMillStateId() {
-        return millStateId;
+    public MillState getMillState() {
+        return millState;
     }
 
-    public void setMillStateId(int millStateId) {
-        this.millStateId = millStateId;
+    public void setMillState(MillState millState) {
+        this.millState = millState;
     }
 
     public int getPrice() {
@@ -376,5 +382,13 @@ public class Mill {
 
     public void setAddedById(int addedById) {
         this.addedById = addedById;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 }

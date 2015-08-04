@@ -7,9 +7,12 @@
 	   http://www.springframework.org/schema/security
 	   http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-       <http auto-config="true" access-denied-page="/views/error403.jsp">
-           <!--<intercept-url pattern="/mills/mill*" access="ROLE_ANONYMOUS" />-->
-           <intercept-url pattern="/mills/action/*" access="ROLE_ADMIN,ROLE_USER" />
+        <beans:import resource="classpath:database/daoBeans.xml" />
+
+       <http auto-config="true" use-expressions="true" access-denied-page="/views/error403.jsp">
+           <intercept-url pattern="/mills/action/**"
+                          access="hasAnyRole('ROLE_ADMIN','ROLE_DIRECTOR', 'ROLE_ECONOMIST')" />
+           <intercept-url pattern="/companies/**" access="isAuthenticated()" />
            <form-login
                    login-page="/login"
                    default-target-url="/"
@@ -18,13 +21,12 @@
                    authentication-failure-url="/authorization?error"/>
            <logout logout-success-url="/authorization?logout" />
        </http>
-       
+
        <authentication-manager>
               <authentication-provider>
-                     <user-service>
-                            <user name="admin" password="1234" authorities="ROLE_ADMIN" />
-                            <user name="diller" password="123" authorities="ROLE_USER" />
-                     </user-service>
+                  <jdbc-user-service data-source-ref="dataSource"
+                          users-by-username-query="select username,password, enabled from users where username=?"
+                          authorities-by-username-query="select username, role from user_roles where username =?" />
               </authentication-provider>
        </authentication-manager>
 
