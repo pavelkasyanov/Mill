@@ -45,7 +45,7 @@ public class ProducerDAOImpl implements ProducerDAO {
 
     @Override
     public List<Producer> getAll() {
-        String query = "select * from Producers";
+        String query = "select * from producers";
         List<Producer> producers = jdbcTemplate.query(query, new ProducerMapper());
 
         return producers;
@@ -53,7 +53,7 @@ public class ProducerDAOImpl implements ProducerDAO {
 
     @Override
     public Producer getByName(String name) {
-        String query = "select * from Producers where NAME = ?";
+        String query = "select * from producers where NAME = ?";
         List<Producer> producers = jdbcTemplate.query(query, new Object[]{name}, new ProducerMapper());
         return producers.get(0);
     }
