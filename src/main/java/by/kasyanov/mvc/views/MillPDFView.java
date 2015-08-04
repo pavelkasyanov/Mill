@@ -22,15 +22,6 @@ public class MillPDFView extends AbstractITextPdfView {
                                     HttpServletRequest request,
                                     HttpServletResponse response) throws Exception {
 
-       /*Producer producer = (Producer) model.get("producer");
-        Integer millId = (Integer) model.get("millId");
-        MillDAO millDAO = (MillDAO) model.get("millDAO");
-        Mill mill = millDAO.getById(millId);
-        MillState millState = (MillState) model.get("millState");
-        Boolean isAuthenticated = (Boolean) model.get("isAuthenticated");
-
-        String imagePath = this.getServletContext().getResource("/resources/jpg/mills/123.jpg" + mill.toString()).toString();*/
-
         PDFBuilder pdfBuilder = (PDFBuilder) model.get("PdfBuilderImpl");
         pdfBuilder.build(document, model);
     }

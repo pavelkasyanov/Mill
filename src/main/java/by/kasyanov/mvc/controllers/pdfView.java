@@ -28,10 +28,8 @@ public class pdfView {
 
     @Autowired
     ProducerDAO producerDAO;
-
     @Autowired
     MillDAO millDAO;
-
     @Autowired
     MillService millService;
 
@@ -45,12 +43,8 @@ public class pdfView {
                 authentication.isAuthenticated());
 
         Map<String, Object> params = new ConcurrentHashMap<String, Object>();
-        params.put("millId", id);
-        params.put("millDAO", millDAO);
-        params.put("producer", millService.getProducerForMill(id));
-        params.put("millState", millService.getMillState(id));
         params.put("isAuthenticated", isAuthenticated);
-
+        params.put("millModel", millService.getMillModelById(id));
         params.put("PdfBuilderImpl", new MillPDFBuilder());
 
         return new ModelAndView("millPDFBuilder", params);

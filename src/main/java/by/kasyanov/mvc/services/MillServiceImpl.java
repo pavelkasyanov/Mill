@@ -303,30 +303,41 @@ public class MillServiceImpl implements MillService {
         if (mill == null) {
             throw new ModelMappingExeption("mill(id=" + millId + ") not found");
         }
+
         MillType millType = millTypeDAO.getById(mill.getMillType());
         if (millType == null){
             throw new ModelMappingExeption("millType(id=" + mill.getMillType() + ") not found");
         }
+
         MillState millState = millStateDAO.getById(mill.getMillStateId());
         if (millState == null) {
             throw new ModelMappingExeption("millState(id=" + mill.getMillStateId() + ") not found");
         }
+
         Producer producer = producerDAO.getById(mill.getProducerId());
         if (producer == null) {
             throw new ModelMappingExeption("producer(id=" + mill.getProducerId() + ") not found");
         }
+
         Country countryProducing = countryDAO.getById(mill.getCountryProducingId());
         if (countryProducing == null) {
             throw new ModelMappingExeption("countryProducing(id=" + mill.getCountryProducingId() + ") not found");
         }
+
         Country machineLocation = countryDAO.getById(mill.getMachineLocation());
         if (machineLocation == null) {
             throw new ModelMappingExeption("machineLocation(id=" + mill.getMachineLocation() + ") not found");
         }
+
         ToolShoopType toolShoopType = toolShoopTypeDAO.getById(mill.getToolShoopType());
         if (toolShoopType == null) {
             throw new ModelMappingExeption("toolShoopType(id=" + mill.getToolShoopType() + ") not found");
         }
+        List<Image> imageList = imageDAO.getImagesFromMill(millId);
+        if (imageList == null) {
+            throw new ModelMappingExeption("images from mill(id=" + mill.getToolShoopType() + ") not found");
+        }
+
         MillModel model = new MillModel();
 
         model.setId(mill.getId());
@@ -368,6 +379,8 @@ public class MillServiceImpl implements MillService {
         model.setPrice(mill.getPrice());
         model.setAddedDate(mill.getAddedDate());
         model.setAddedById(mill.getAddedById());
+
+        model.setImages(imageList);
 
         return model;
     }

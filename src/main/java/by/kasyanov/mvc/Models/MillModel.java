@@ -3,6 +3,7 @@ package by.kasyanov.mvc.Models;
 import by.kasyanov.mvc.entities.*;
 
 import java.util.Date;
+import java.util.List;
 
 public class MillModel {
     private int         id;
@@ -42,6 +43,8 @@ public class MillModel {
     private Date        addedDate;
     private int         addedById; //TODO change addedBy
 
+    private List<Image> images;
+
     public MillModel() {
     }
 
@@ -53,7 +56,7 @@ public class MillModel {
                      int spindleTorqueMax, String spindleType, String spindleCooling, ToolShoopType toolShoopType,
                      int toolShoopNumber, int toolShoopMaxD, int toolShoopWeightMax, float toolShoopChangeTime,
                      float positioningAccuracy, float positioningRepeatability, int spindleWorkTime, int workTime,
-                     String additionalConfiguration, MillState millState, int price, Date addedDate, int addedById) {
+                     String additionalConfiguration, MillState millState, int price, Date addedDate, int addedById, List<Image> images) {
         this.id = id;
         this.productId = productId;
         this.millType = millType;
@@ -90,6 +93,7 @@ public class MillModel {
         this.price = price;
         this.addedDate = addedDate;
         this.addedById = addedById;
+        this.images = images;
     }
 
     public int getId() {
@@ -378,5 +382,13 @@ public class MillModel {
 
     public void setAddedById(int addedById) {
         this.addedById = addedById;
+    }
+
+    public List<Image> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Image> images) {
+        this.images = images;
     }
 }
