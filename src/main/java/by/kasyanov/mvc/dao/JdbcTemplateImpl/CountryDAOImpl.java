@@ -21,7 +21,7 @@ public class CountryDAOImpl implements CountryDAO {
 
     @Override
     public void insert(Country country) {
-        String sql = "INSERT INTO Countries " +
+        String sql = "INSERT INTO countries " +
                 "(NAME, IMAGE)" +
                 "VALUES (?, ?)";
 
@@ -30,7 +30,7 @@ public class CountryDAOImpl implements CountryDAO {
 
     @Override
     public void update(Country country) {
-        String sql = "update Countries " +
+        String sql = "update countries " +
                 "set NAME = ?, IMAGE = ? " +
                 " where id = ?";
         jdbcTemplate.update(sql, new Object[]{country.getName(),
@@ -41,21 +41,20 @@ public class CountryDAOImpl implements CountryDAO {
 
     @Override
     public void deleteById(int id) {
-        String sql = "delete from Countries " +
-                "where ID = ?";
+        String sql = "delete from countries where ID = ?";
         jdbcTemplate.update(sql, new Object[]{id});
     }
 
     @Override
     public Country getById(int id) {
-        String query = "select * from Countries where ID = ?";
+        String query = "select * from countries where ID = ?";
          List<Country> country = jdbcTemplate.query(query, new Object[]{id}, new CountryMapper());
         return country.get(0);
     }
 
     @Override
     public List<Country> getAll() {
-        String query = "select * from Countries";
+        String query = "select * from countries";
         List<Country> countryList = jdbcTemplate.query(query, new CountryMapper());
 
         return countryList;
@@ -63,7 +62,7 @@ public class CountryDAOImpl implements CountryDAO {
 
     @Override
     public Country getByName(String name) {
-        String query = "select * from Countries where NAME = ?";
+        String query = "select * from countries where NAME = ?";
         List<Country> country = jdbcTemplate.query(query, new Object[]{name}, new CountryMapper());
         return country.get(0);
     }

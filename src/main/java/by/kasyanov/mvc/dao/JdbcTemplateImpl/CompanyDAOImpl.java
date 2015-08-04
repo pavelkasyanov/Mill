@@ -20,7 +20,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public void insert(Company company) {
-        String sql = "INSERT INTO Companies " +
+        String sql = "INSERT INTO companies " +
                 "(NAME, CITY, COUNTRY_ID, STREET, HOME, OFFICE, POSTCODE, DESCRIPTION, SITE)" +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -38,7 +38,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public Company getById(int id) {
-        String query = "select * from Companies where ID = ?";
+        String query = "select * from companies where ID = ?";
         List<Company> companies = jdbcTemplate.query(query, new Object[]{id}, new CompanyMapper());
         return companies.get(0);
     }
@@ -55,7 +55,7 @@ public class CompanyDAOImpl implements CompanyDAO {
 
     @Override
     public List<Company> getAll() {
-        String query = "select * from Companies";
+        String query = "select * from companies";
         List<Company> companies = jdbcTemplate.query(query, new CompanyMapper());
 
         return companies;
