@@ -1,8 +1,10 @@
 package by.kasyanov.mvc.controllers;
 
 
+import by.kasyanov.mvc.Models.MillModel;
 import by.kasyanov.mvc.dao.*;
 import by.kasyanov.mvc.entities.*;
+import by.kasyanov.mvc.exceptions.ModelMappingExeption;
 import by.kasyanov.mvc.services.MillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -210,6 +212,18 @@ public class MillController {
     public String compareMills(ModelMap model,
                                 @RequestParam("from") int idFrom,
                                 @RequestParam("with") int idWith) {
+
+        MillModel mill1 = null;
+        MillModel mill2 = null;
+        try {
+            mill1 = millService.getMillModelById(idFrom);
+            mill2 = millService.getMillModelById(idWith);
+        } catch (ModelMappingExeption modelMappingExeption) {
+            modelMappingExeption.printStackTrace();
+        }
+
+        model.addAttribute("millModelFrom", mill1);
+        model.addAttribute("millModelWith", mill2);
 
         return "compareMils";
     }

@@ -1,8 +1,10 @@
 package by.kasyanov.mvc.services;
 
+import by.kasyanov.mvc.Models.MillModel;
 import by.kasyanov.mvc.builders.MillExelBuilder;
 import by.kasyanov.mvc.dao.*;
 import by.kasyanov.mvc.entities.*;
+import by.kasyanov.mvc.exceptions.ModelMappingExeption;
 import by.kasyanov.mvc.exceptions.ParseExelException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -293,5 +295,80 @@ public class MillServiceImpl implements MillService {
         }
 
         return imageMap;
+    }
+
+    @Override
+    public MillModel getMillModelById(int millId) throws ModelMappingExeption {
+        Mill mill = millDAO.getById(millId);
+        if (mill == null) {
+            throw new ModelMappingExeption("mill(id=" + millId + ") not found");
+        }
+        MillType millType = millTypeDAO.getById(mill.getMillType());
+        if (millType == null){
+            throw new ModelMappingExeption("millType(id=" + mill.getMillType() + ") not found");
+        }
+        MillState millState = millStateDAO.getById(mill.getMillStateId());
+        if (millState == null) {
+            throw new ModelMappingExeption("millState(id=" + mill.getMillStateId() + ") not found");
+        }
+        Producer producer = producerDAO.getById(mill.getProducerId());
+        if (producer == null) {
+            throw new ModelMappingExeption("producer(id=" + mill.getProducerId() + ") not found");
+        }
+        Country countryProducing = countryDAO.getById(mill.getCountryProducingId());
+        if (countryProducing == null) {
+            throw new ModelMappingExeption("countryProducing(id=" + mill.getCountryProducingId() + ") not found");
+        }
+        Country machineLocation = countryDAO.getById(mill.getMachineLocation());
+        if (machineLocation == null) {
+            throw new ModelMappingExeption("machineLocation(id=" + mill.getMachineLocation() + ") not found");
+        }
+        ToolShoopType toolShoopType = toolShoopTypeDAO.getById(mill.getToolShoopType());
+        if (toolShoopType == null) {
+            throw new ModelMappingExeption("toolShoopType(id=" + mill.getToolShoopType() + ") not found");
+        }
+        MillModel model = new MillModel();
+
+        model.setId(mill.getId());
+        model.setProductId(mill.getProductId());
+        model.setMillType(millType);
+        model.setModel(mill.getModel());
+        model.setProducer(producer);
+        model.setCountryProducing(countryProducing);
+        model.setCncType(mill.getCncType());
+        model.setYear(mill.getYear());
+
+        model.setMachineLocation(machineLocation);
+        model.setAxisCount(mill.getAxisCount());
+        model.setMovingX(mill.getMovingX());
+        model.setMovingY(mill.getMovingY());
+        model.setMovingZ(mill.getMovingZ());
+        model.setTableLength(mill.getTableLength());
+        model.setTableWidth(mill.getTableWidth());
+        model.setTableWeightMax(mill.getToolShoopWeightMax());
+        model.setSpindleTaper(mill.getSpindleTaper());
+        model.setSpindleSpeedMax(mill.getSpindleSpeedMax());
+        model.setSpindlePower(mill.getSpindlePower());
+        model.setSpindleTorqueMax(mill.getSpindleTorqueMax());
+        model.setSpindleType(mill.getSpindleType());
+        model.setSpindleCooling(mill.getSpindleCooling());
+
+        model.setToolShoopType(toolShoopType);
+        model.setToolShoopNumber(mill.getToolShoopNumber());
+        model.setToolShoopMaxD(mill.getToolShoopMaxD());
+        model.setToolShoopWeightMax(mill.getToolShoopWeightMax());
+        model.setToolShoopChangeTime(mill.getToolShoopChangeTime());
+        model.setPositioningAccuracy(mill.getPositioningAccuracy());
+        model.setPositioningRepeatability(mill.getPositioningRepeatability());
+        model.setSpindleWorkTime(mill.getSpindleWorkTime());
+        model.setWorkTime(mill.getWorkTime());
+        model.setAdditionalConfiguration(mill.getAdditionalConfiguration());
+
+        model.setMillState(millState);
+        model.setPrice(mill.getPrice());
+        model.setAddedDate(mill.getAddedDate());
+        model.setAddedById(mill.getAddedById());
+
+        return model;
     }
 }

@@ -1,6 +1,6 @@
 package by.kasyanov.mvc.exceptions;
 
-public class ParseExelException extends Exception {
+public class ParseExelException extends RuntimeException {
 
     public ParseExelException() {
 

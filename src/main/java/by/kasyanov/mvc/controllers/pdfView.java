@@ -1,5 +1,6 @@
 package by.kasyanov.mvc.controllers;
 
+import by.kasyanov.mvc.builders.MillPDFBuilder;
 import by.kasyanov.mvc.dao.MillDAO;
 import by.kasyanov.mvc.dao.MillStateDAO;
 import by.kasyanov.mvc.dao.ProducerDAO;
@@ -19,6 +20,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
 @RequestMapping("/pdfView")
@@ -42,12 +44,14 @@ public class pdfView {
                 !(authentication instanceof AnonymousAuthenticationToken) &&
                 authentication.isAuthenticated());
 
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new ConcurrentHashMap<String, Object>();
         params.put("millId", id);
         params.put("millDAO", millDAO);
         params.put("producer", millService.getProducerForMill(id));
         params.put("millState", millService.getMillState(id));
         params.put("isAuthenticated", isAuthenticated);
+
+        params.put("PdfBuilderImpl", new MillPDFBuilder());
 
         return new ModelAndView("millPDFBuilder", params);
     }

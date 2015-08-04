@@ -1,6 +1,7 @@
 package by.kasyanov.mvc.views;
 
 import by.kasyanov.mvc.builders.MillPDFBuilder;
+import by.kasyanov.mvc.builders.PDFBuilder;
 import by.kasyanov.mvc.dao.MillDAO;
 import by.kasyanov.mvc.entities.Mill;
 import by.kasyanov.mvc.entities.MillState;
@@ -21,15 +22,16 @@ public class MillPDFView extends AbstractITextPdfView {
                                     HttpServletRequest request,
                                     HttpServletResponse response) throws Exception {
 
-       Producer producer = (Producer) model.get("producer");
+       /*Producer producer = (Producer) model.get("producer");
         Integer millId = (Integer) model.get("millId");
         MillDAO millDAO = (MillDAO) model.get("millDAO");
         Mill mill = millDAO.getById(millId);
         MillState millState = (MillState) model.get("millState");
         Boolean isAuthenticated = (Boolean) model.get("isAuthenticated");
 
-        String imagePath = this.getServletContext().getResource("/resources/jpg/mills/123.jpg" + mill.toString()).toString();
+        String imagePath = this.getServletContext().getResource("/resources/jpg/mills/123.jpg" + mill.toString()).toString();*/
 
-        new MillPDFBuilder().build(document, imagePath, mill, producer, null, millState, isAuthenticated);
+        PDFBuilder pdfBuilder = (PDFBuilder) model.get("PdfBuilderImpl");
+        pdfBuilder.build(document, model);
     }
 }

@@ -29,6 +29,14 @@
             <input type="button" class="btn btn-primary" value="View PDF" />
           </a>
         </div>
+        <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+          <div class="row">
+            <Br />
+            <a href="<c:url value="/offer/create?from=${mill.id}"/>">
+              <input type="button" class="btn btn-primary" value="create offer">
+            </a>
+          </div>
+        </sec:authorize>
         <div class="row">
           <sec:authorize access="hasRole('ROLE_ADMIN')">
             <Br />
